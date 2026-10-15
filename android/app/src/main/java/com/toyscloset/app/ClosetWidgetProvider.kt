@@ -13,19 +13,21 @@ class ClosetWidgetProvider : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
 
-            views.setOnClickPendingIntent(R.id.btn_snap_item, getPendingUrl(context, "https://toys-wardrobe.netlify.app#camera", 1))
-            views.setOnClickPendingIntent(R.id.jump_closet, getPendingUrl(context, "https://toys-wardrobe.netlify.app#closet", 2))
-            views.setOnClickPendingIntent(R.id.jump_scent, getPendingUrl(context, "https://toys-wardrobe.netlify.app#scent", 3))
-            views.setOnClickPendingIntent(R.id.jump_events, getPendingUrl(context, "https://toys-wardrobe.netlify.app#events", 4))
-            views.setOnClickPendingIntent(R.id.jump_planner, getPendingUrl(context, "https://toys-wardrobe.netlify.app#planner", 5))
+            views.setOnClickPendingIntent(R.id.btn_snap_item, getDeepLinkIntent(context, "camera", 1))
+            views.setOnClickPendingIntent(R.id.jump_closet, getDeepLinkIntent(context, "closet", 2))
+            views.setOnClickPendingIntent(R.id.jump_scent, getDeepLinkIntent(context, "scent", 3))
+            views.setOnClickPendingIntent(R.id.jump_events, getDeepLinkIntent(context, "events", 4))
+            views.setOnClickPendingIntent(R.id.jump_planner, getDeepLinkIntent(context, "planner", 5))
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }
 
-    private fun getPendingUrl(context: Context, url: String, req: Int): PendingIntent {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+    private fun getDeepLinkIntent(context: Context, route: String, req: Int): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse("https://localhost/#$route")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         return PendingIntent.getActivity(context, req, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }

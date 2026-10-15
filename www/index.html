@@ -38,11 +38,6 @@
       border: 1px solid #00F0FF;
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
     }
-    .widget-preview-box {
-      background: linear-gradient(135deg, #23053F 0%, #004D40 100%);
-      border: 2px solid rgba(192, 192, 192, 0.35);
-      box-shadow: 0 8px 32px rgba(0, 240, 255, 0.2);
-    }
   </style>
 </head>
 <body class="p-4 selection:bg-teal-accent selection:text-black">
@@ -56,24 +51,20 @@
       <p class="text-xs text-silver tracking-widest uppercase">Luxury Wardrobe • Scent • Tri-State Radar</p>
     </div>
     <div class="flex items-center gap-2">
-      <button onclick="switchTab('widget')" title="Widget Settings" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-silver border border-purple-vibrant/40 active:scale-95">
-        <i class="fa-solid fa-shapes"></i>
-      </button>
-      <button onclick="switchTab('camera')" title="Snap Ingestion" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95">
+      <button onclick="switchTab('camera')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95">
         <i class="fa-solid fa-camera"></i>
       </button>
     </div>
   </header>
 
-  <!-- Main Viewports -->
+  <!-- Viewports -->
   <main id="app-content">
 
-    <!-- TAB 1: CLOSET & 3D GLAM MIRROR -->
+    <!-- CLOSET VIEW -->
     <section id="tab-closet" class="space-y-4">
-      <!-- 3D Avatar Card -->
       <div class="glass-card rounded-2xl p-4 neon-border">
         <div class="flex justify-between items-center mb-2">
-          <span class="text-xs text-teal-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 3D Avatar Mirror</span>
+          <span class="text-xs text-teal-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 3D Glam Mirror</span>
           <span class="text-xs bg-purple-royal px-2.5 py-0.5 rounded-full border border-purple-vibrant text-diamond">Tonight's Fit</span>
         </div>
         <div class="flex items-center gap-4 py-2">
@@ -82,9 +73,9 @@
             <span class="text-[9px] text-teal-accent font-mono font-bold tracking-widest">GLAM 4K</span>
           </div>
           <div class="flex-1 space-y-1">
-            <h3 class="font-bold text-diamond text-sm">Emerald Silk Trousers & Silver Heels</h3>
-            <p class="text-xs text-silver">Hair: Knotless Box Braids (Waist Length)</p>
-            <p class="text-xs text-silver">Glam: Cocoa Butter Glow • Velvet Brown Lip</p>
+            <h3 class="font-bold text-diamond text-sm">Silk Emerald Trousers & Silver Heels</h3>
+            <p class="text-xs text-silver">Hair: Knotless Braids • Waist Length</p>
+            <p class="text-xs text-silver">Glam: Bronze Glow • Velvet Brown Lip</p>
             <div class="flex gap-2 pt-1">
               <span class="text-[10px] bg-teal-dark/60 text-teal-accent px-2 py-0.5 rounded border border-teal-accent/30">Silk Blend</span>
               <span class="text-[10px] bg-purple-royal/80 text-purple-glow px-2 py-0.5 rounded border border-purple-vibrant/30">Tri-State Ready</span>
@@ -93,18 +84,14 @@
         </div>
       </div>
 
-      <!-- Categories & Wardrobe Items -->
-      <div class="flex justify-between items-center mt-6 mb-2">
-        <h2 class="text-sm font-semibold tracking-wider text-silver uppercase">Wardrobe Vault</h2>
-        <span class="text-xs text-teal-accent cursor-pointer" onclick="switchTab('camera')">+ Add New Item</span>
-      </div>
+      <h2 class="text-sm font-semibold tracking-wider text-silver uppercase mt-4 mb-2">Wardrobe Vault</h2>
       <div class="grid grid-cols-2 gap-3">
         <div class="glass-card p-3 rounded-xl border border-slate-700/50">
           <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
             <i class="fa-solid fa-vest-patches text-3xl"></i>
           </div>
           <p class="text-xs font-bold text-diamond">Electric Teal Silk Blazer</p>
-          <p class="text-[10px] text-silver">Zara Limited Edition • Tagged</p>
+          <p class="text-[10px] text-silver">Zara Limited Edition</p>
         </div>
         <div class="glass-card p-3 rounded-xl border border-slate-700/50">
           <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
@@ -113,79 +100,50 @@
           <p class="text-xs font-bold text-diamond">Metallic Silver Stilettos</p>
           <p class="text-[10px] text-silver">Aquazzura • 105mm</p>
         </div>
-        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
-          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
-            <i class="fa-solid fa-person-dress text-3xl"></i>
-          </div>
-          <p class="text-xs font-bold text-diamond">Royal Jewel Purple Maxi Gown</p>
-          <p class="text-[10px] text-silver">Nordstrom • Gala Ready</p>
-        </div>
-        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
-          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
-            <i class="fa-solid fa-glasses text-3xl"></i>
-          </div>
-          <p class="text-xs font-bold text-diamond">Diamond Cut Frameless Shades</p>
-          <p class="text-[10px] text-silver">Cartier • Luxury Accents</p>
-        </div>
       </div>
     </section>
 
-    <!-- TAB 2: ALL-DAY SCENT PROFILER -->
+    <!-- SCENT VIEW -->
     <section id="tab-scent" class="hidden space-y-4">
       <div class="glass-card rounded-2xl p-5 border border-purple-vibrant/40">
         <div class="flex items-center gap-2 mb-3">
           <i class="fa-solid fa-spray-can-sparkles text-teal-accent text-lg"></i>
           <h2 class="text-base font-bold text-diamond">All-Day Scent Layer Profile</h2>
         </div>
-        
         <div class="space-y-3">
           <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span class="text-[10px] font-bold text-teal-accent uppercase">Base Note Foundation</span>
-            <p class="text-sm font-bold text-diamond">Amber Cashmere + Tahitian Vanilla Body Oil</p>
-            <p class="text-xs text-silver">Apply to pulse points directly after moisture routine.</p>
+            <span class="text-[10px] font-bold text-teal-accent uppercase">Base Foundation</span>
+            <p class="text-sm font-bold text-diamond">Amber Cashmere + Tahitian Vanilla Oil</p>
+            <p class="text-xs text-silver">Pulse points directly post-shower.</p>
           </div>
-
           <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span class="text-[10px] font-bold text-purple-glow uppercase">Heart Projection Layer</span>
-            <p class="text-sm font-bold text-diamond">Maison Francis Kurkdjian Baccarat Rouge 540</p>
-            <p class="text-xs text-silver">Mist onto wrists, collarbone, and outer blazer lapels.</p>
+            <span class="text-[10px] font-bold text-purple-glow uppercase">Heart Projection</span>
+            <p class="text-sm font-bold text-diamond">Baccarat Rouge 540 Eau de Parfum</p>
+            <p class="text-xs text-silver">Collarbone, wrists, and silk outerwear.</p>
           </div>
-
           <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span class="text-[10px] font-bold text-diamond uppercase">Top Accents & Sillage Duration</span>
+            <span class="text-[10px] font-bold text-diamond uppercase">Top Accents & Sillage</span>
             <p class="text-sm font-bold text-diamond">Bergamot & Pink Pepper Spritz</p>
-            <p class="text-xs text-silver">High-sillage envelope projected for 10+ hours active.</p>
+            <p class="text-xs text-silver">Projection active: 10+ hours.</p>
           </div>
         </div>
       </div>
-
-      <!-- Scent Pairing Recommendations -->
-      <div class="glass-card rounded-2xl p-4 border border-slate-700/50">
-        <h3 class="text-xs font-bold text-silver uppercase tracking-wider mb-2">Complementary Evening Duos</h3>
-        <ul class="text-xs space-y-2 text-diamond">
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-accent"></i> Tom Ford Lost Cherry + Vanilla 28 (Warm Gourmand)</li>
-          <li class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-accent"></i> Kilian Angels' Share + Santal 33 (Smoky Wood & Cognac)</li>
-        </ul>
-      </div>
     </section>
 
-    <!-- TAB 3: RADAR (TRI-STATE EVENTS & OUTLETS) -->
+    <!-- RADAR VIEW -->
     <section id="tab-events" class="hidden space-y-4">
       <div class="glass-card rounded-2xl p-4 border border-teal-accent/30">
-        <h2 class="text-sm font-bold text-teal-accent uppercase tracking-wider mb-1">
+        <h2 class="text-sm font-bold text-teal-accent uppercase tracking-wider mb-2">
           <i class="fa-solid fa-location-dot mr-1"></i> Tri-State Events Radar
         </h2>
-        <p class="text-xs text-silver mb-3">Live R&B sets, soul listening bars, and wine & cigar lounges in Hudson Valley, NYC & NJ.</p>
-
         <div class="space-y-2">
           <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
             <div>
               <p class="text-xs font-bold text-diamond">SoHo Rooftop Cigar & Cognac</p>
-              <p class="text-[10px] text-silver">Manhattan, NY • Dress Code: Silk Jewel-Tones</p>
+              <p class="text-[10px] text-silver">Manhattan, NY • Jewel-Tone Silk</p>
             </div>
             <span class="text-xs text-teal-accent font-bold">This Friday</span>
           </div>
-
           <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
             <div>
               <p class="text-xs font-bold text-diamond">Hudson Valley Reserve R&B Tasting</p>
@@ -196,10 +154,9 @@
         </div>
       </div>
 
-      <!-- Outlets Price Tracker -->
       <div class="glass-card rounded-2xl p-4 border border-slate-700/40">
         <h2 class="text-sm font-bold text-diamond uppercase tracking-wider mb-2">
-          <i class="fa-solid fa-tag text-teal-accent mr-1"></i> Tracked Outlet Price Drops
+          <i class="fa-solid fa-tag text-teal-accent mr-1"></i> Outlets Price Tracker
         </h2>
         <div class="space-y-2">
           <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
@@ -209,103 +166,42 @@
             </div>
             <span class="text-[10px] bg-teal-dark text-teal-accent px-2 py-0.5 rounded">Woodbury, NY</span>
           </div>
-          <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
-            <div>
-              <p class="text-xs font-bold text-diamond">The Mills at Jersey Gardens</p>
-              <p class="text-[10px] text-purple-glow">Coach Luxury Drop Alert • VIP Pass Active</p>
-            </div>
-            <span class="text-[10px] bg-purple-royal text-diamond px-2 py-0.5 rounded">Elizabeth, NJ</span>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: PLANNER & CALENDAR -->
+    <!-- PLANNER VIEW -->
     <section id="tab-planner" class="hidden space-y-4">
       <div class="glass-card rounded-2xl p-4 border border-silver/20">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-sm font-bold text-diamond uppercase tracking-wider">Weekly Outfit Calendar</h2>
-          <button class="text-xs text-teal-accent font-bold"><i class="fa-solid fa-calendar-plus mr-1"></i> Calendar Sync</button>
-        </div>
+        <h2 class="text-sm font-bold text-diamond uppercase tracking-wider mb-3">Weekly Outfit Calendar</h2>
         <div class="space-y-2">
           <div class="p-3 bg-slate-900/60 rounded-xl border-l-4 border-teal-accent flex justify-between items-center">
             <div>
-              <p class="text-xs font-bold text-diamond">Thursday Evening</p>
+              <p class="text-xs font-bold text-diamond">Tonight's Dinner</p>
               <p class="text-[11px] text-silver">Silk Emerald Trousers & Silver Heels</p>
             </div>
             <span class="text-[10px] text-teal-accent font-mono">CONFIRMED</span>
           </div>
-          <div class="p-3 bg-slate-900/60 rounded-xl border-l-4 border-purple-vibrant flex justify-between items-center">
-            <div>
-              <p class="text-xs font-bold text-diamond">Saturday Gala & Dinner</p>
-              <p class="text-[11px] text-silver">Electric Teal Velvet Gown + Diamond Accents</p>
-            </div>
-            <span class="text-[10px] text-purple-glow font-mono">READY</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pinterest Sync Section -->
-      <div class="glass-card rounded-2xl p-4 border border-slate-700/50">
-        <h3 class="text-xs font-bold text-diamond uppercase tracking-wider mb-2">
-          <i class="fa-brands fa-pinterest text-red-500 mr-1"></i> Mood Board Inspiration
-        </h3>
-        <p class="text-[11px] text-silver mb-3">Synced from your Black Girl Luxury & High-Scent boards.</p>
-        <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-silver">
-          <div class="h-20 bg-purple-royal/60 rounded-lg flex items-center justify-center border border-purple-vibrant/30">Silk Tailoring</div>
-          <div class="h-20 bg-teal-dark/60 rounded-lg flex items-center justify-center border border-teal-accent/30">Fall Fragrance</div>
-          <div class="h-20 bg-slate-800 rounded-lg flex items-center justify-center border border-slate-700">Jewel Palettes</div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 5: SNAP CAMERA -->
+    <!-- SNAP INGESTION VIEW -->
     <section id="tab-camera" class="hidden space-y-4">
       <div class="glass-card rounded-2xl p-6 text-center border border-teal-accent/50 neon-border">
         <i class="fa-solid fa-camera-retro text-4xl text-teal-accent mb-3"></i>
         <h2 class="text-lg font-bold text-diamond mb-1">Wardrobe AI Scanner</h2>
-        <p class="text-xs text-silver mb-4">Snap items to auto-categorize fabric, tone-matching, and hair/scent recommendations.</p>
-        <input type="file" accept="image/*" capture="environment" id="camera-file" class="hidden" onchange="alert('Item captured and analyzed successfully!')">
+        <p class="text-xs text-silver mb-4">Snap items to auto-categorize fabric and tone-matching.</p>
+        <input type="file" accept="image/*" capture="environment" id="camera-file" class="hidden" onchange="alert('Item added to your wardrobe!')">
         <button onclick="document.getElementById('camera-file').click()" class="w-full py-3 bg-gradient-to-r from-teal-deep to-purple-royal rounded-xl font-bold text-diamond border border-teal-accent/50 shadow-lg active:scale-95">
           Take Photo / Upload
         </button>
       </div>
     </section>
 
-    <!-- TAB 6: 4x4 HOME SCREEN WIDGET PREVIEW & SYNC -->
-    <section id="tab-widget" class="hidden space-y-4">
-      <div class="text-center mb-2">
-        <h2 class="text-base font-bold text-diamond">Native 4×4 Android Home Screen Widget</h2>
-        <p class="text-xs text-silver">Live interactive simulation of your Samsung home screen widget.</p>
-      </div>
-
-      <!-- Interactive Widget Replica -->
-      <div class="widget-preview-box rounded-3xl p-5 w-full max-w-sm mx-auto flex flex-col justify-between space-y-4">
-        <div class="flex justify-between items-center">
-          <span class="text-sm font-extrabold tracking-wider text-diamond">TOY'S CLOSET</span>
-          <button onclick="switchTab('camera')" class="px-3 py-1 bg-teal-accent/90 text-black font-extrabold text-xs rounded-lg shadow">
-            SNAP
-          </button>
-        </div>
-
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-teal-accent/30">
-          <p class="text-[10px] font-bold text-teal-accent uppercase tracking-widest">TODAY'S FIT &amp; SCENT</p>
-          <p class="text-sm font-bold text-diamond mt-1">Silk Emerald Trousers &amp; Silver Heels</p>
-          <p class="text-xs text-silver mt-1">Amber Cashmere + Baccarat Rouge 540</p>
-        </div>
-
-        <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold">
-          <button onclick="switchTab('closet')" class="py-1 bg-white/5 rounded-lg text-silver hover:text-teal-accent">Closet</button>
-          <button onclick="switchTab('scent')" class="py-1 bg-white/5 rounded-lg text-silver hover:text-teal-accent">Scent</button>
-          <button onclick="switchTab('events')" class="py-1 bg-white/5 rounded-lg text-silver hover:text-teal-accent">Events</button>
-          <button onclick="switchTab('planner')" class="py-1 bg-white/5 rounded-lg text-silver hover:text-teal-accent">Plan</button>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- Persistent Bottom Navigation Bar -->
+  <!-- Bottom Navigation -->
   <nav class="fixed bottom-0 left-0 right-0 glass-card bg-slate-950/90 border-t border-slate-800 px-6 py-3 flex justify-between items-center z-50">
     <button onclick="switchTab('closet')" id="nav-closet" class="flex flex-col items-center text-teal-accent text-xs">
       <i class="fa-solid fa-shirt text-lg mb-0.5"></i>
@@ -327,7 +223,7 @@
 
   <script>
     function switchTab(tabId) {
-      const tabs = ['closet', 'scent', 'events', 'planner', 'camera', 'widget'];
+      const tabs = ['closet', 'scent', 'events', 'planner', 'camera'];
       tabs.forEach(t => {
         const el = document.getElementById('tab-' + t);
         if (el) el.classList.add('hidden');
@@ -337,10 +233,8 @@
           nav.classList.add('text-silver');
         }
       });
-
       const activeEl = document.getElementById('tab-' + tabId);
       if (activeEl) activeEl.classList.remove('hidden');
-
       const activeNav = document.getElementById('nav-' + tabId);
       if (activeNav) {
         activeNav.classList.add('text-teal-accent');
@@ -348,16 +242,14 @@
       }
     }
 
-    // Handles deep links from Android Home Screen 4x4 Widget
-    function handleHash() {
+    function checkDeepLink() {
       const hash = window.location.hash.replace('#', '');
-      if (hash && ['closet', 'scent', 'events', 'planner', 'camera', 'widget'].includes(hash)) {
+      if (hash && ['closet', 'scent', 'events', 'planner', 'camera'].includes(hash)) {
         switchTab(hash);
       }
     }
-
-    window.addEventListener('hashchange', handleHash);
-    window.addEventListener('DOMContentLoaded', handleHash);
+    window.addEventListener('hashchange', checkDeepLink);
+    window.addEventListener('DOMContentLoaded', checkDeepLink);
   </script>
 </body>
 </html>

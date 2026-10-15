@@ -15,12 +15,10 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Install dependencies & sync Capacitor
+      - name: Copy Web Assets & Sync
         run: |
-          mkdir -p www
-          mkdir -p android/app/src/main/assets
-          npm install
-          npx cap sync android
+          mkdir -p android/app/src/main/assets/public
+          cp -r www/* android/app/src/main/assets/public/
 
       - name: Build Debug APK
         run: |
