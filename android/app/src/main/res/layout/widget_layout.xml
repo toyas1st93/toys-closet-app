@@ -1,114 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/widget_bg"
-    android:padding="16dp">
+    android:padding="12dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
+        android:layout_marginBottom="8dp">
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="TOY'S CLOSET"
-            android:textColor="#F8FAFC"
+            android:textColor="#00F0FF"
             android:textStyle="bold"
-            android:textSize="16sp" />
-
+            android:textSize="14sp" />
         <Button
             android:id="@+id/btn_snap_item"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
             android:text="SNAP"
-            android:backgroundTint="#008B8B"
-            android:textColor="#FFFFFF" />
+            android:textColor="#050B14"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:backgroundTint="#00F0FF" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/jump_fyp_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#151A2E"
+        android:padding="8dp"
+        android:layout_marginBottom="6dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FYP SALE DROP PREVIEW"
+            android:textColor="#00F0FF"
+            android:textStyle="bold"
+            android:textSize="10sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aquazzura &amp; Saks 50% Off • Tap to Open"
+            android:textColor="#F8FAFC"
+            android:textSize="11sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/widget_center_card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginVertical="12dp"
-        android:padding="12dp"
-        android:background="@drawable/widget_inner_card">
-
+        android:background="#0A111E"
+        android:padding="8dp">
         <TextView
-            android:text="TODAY'S FIT &amp; SCENT"
-            android:textColor="#00F0FF"
-            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOOD CLOTH &amp; SCENT BOARDS"
+            android:textColor="#9D4EDD"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:textSize="10sp" />
         <TextView
-            android:id="@+id/widget_scheduled_outfit"
-            android:text="Silk Emerald Trousers &amp; Silver Heels"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fit: Velvet Trench &amp; Silk Trousers"
+            android:textColor="#F8FAFC"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:textSize="11sp" />
         <TextView
-            android:id="@+id/widget_scent_layer"
-            android:text="Amber Cashmere + Baccarat 540"
-            android:textColor="#E2E8F0"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Scent: Amber Cashmere + Baccarat 540"
+            android:textColor="#CBD5E1"
+            android:textSize="11sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
+        android:layout_marginTop="8dp">
+        <Button
             android:id="@+id/jump_closet"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:text="Closet"
-            android:textColor="#CBD5E1" />
-
-        <TextView
+            android:textSize="10sp"
+            android:backgroundTint="#002B24"
+            android:textColor="#00F0FF" />
+        <Button
             android:id="@+id/jump_scent"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:text="Scent"
-            android:textColor="#CBD5E1" />
-
-        <TextView
-            android:id="@+id/jump_events"
+            android:textSize="10sp"
+            android:backgroundTint="#23053F"
+            android:textColor="#9D4EDD" />
+        <Button
+            android:id="@+id/jump_sales"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Events"
-            android:textColor="#CBD5E1" />
-
-        <TextView
-            android:id="@+id/jump_planner"
+            android:text="Sales"
+            android:textSize="10sp"
+            android:backgroundTint="#1F2937"
+            android:textColor="#F8FAFC" />
+        <Button
+            android:id="@+id/jump_pinterest"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Plan"
-            android:textColor="#CBD5E1" />
+            android:text="Boards"
+            android:textSize="10sp"
+            android:backgroundTint="#23053F"
+            android:textColor="#F8FAFC" />
     </LinearLayout>
 </LinearLayout>

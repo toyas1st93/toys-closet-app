@@ -16,8 +16,9 @@ class ClosetWidgetProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.btn_snap_item, getDeepLinkIntent(context, "camera", 1))
             views.setOnClickPendingIntent(R.id.jump_closet, getDeepLinkIntent(context, "closet", 2))
             views.setOnClickPendingIntent(R.id.jump_scent, getDeepLinkIntent(context, "scent", 3))
-            views.setOnClickPendingIntent(R.id.jump_events, getDeepLinkIntent(context, "events", 4))
-            views.setOnClickPendingIntent(R.id.jump_planner, getDeepLinkIntent(context, "planner", 5))
+            views.setOnClickPendingIntent(R.id.jump_sales, getDeepLinkIntent(context, "sales", 4))
+            views.setOnClickPendingIntent(R.id.jump_pinterest, getDeepLinkIntent(context, "pinterest", 5))
+            views.setOnClickPendingIntent(R.id.jump_fyp_preview, getDeepLinkIntent(context, "pinterest", 6))
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
