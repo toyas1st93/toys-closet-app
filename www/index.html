@@ -21,235 +21,280 @@
     }
   </script>
   <style>
-    body {
-      background: radial-gradient(circle at top right, #23053F 0%, #050b14 60%, #002B24 100%);
-      color: #F8FAFC;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      min-height: 100vh;
-      padding-bottom: 90px;
-    }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(203, 213, 225, 0.15);
-    }
-    .neon-border {
-      border: 1px solid #00F0FF;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
-    }
+    body { background: radial-gradient(circle at top right, #23053F 0%, #050b14 60%, #002B24 100%); color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; overflow-x: hidden; }
+    .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(203, 213, 225, 0.15); }
+    .neon-border { border: 1px solid #00F0FF; box-shadow: 0 0 14px rgba(0, 240, 255, 0.3); }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .fyp-container { scroll-snap-type: y mandatory; overflow-y: scroll; height: calc(100vh - 170px); }
+    .fyp-card { scroll-snap-align: start; height: calc(100vh - 190px); }
   </style>
 </head>
-<body class="p-4 selection:bg-teal-accent selection:text-black">
-
-  <!-- Header -->
-  <header class="flex justify-between items-center py-4 mb-4 border-b border-slate-700/60">
-    <div>
-      <h1 class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-teal-accent via-diamond to-purple-glow">
-        TOY'S CLOSET
-      </h1>
-      <p class="text-xs text-silver tracking-widest uppercase">Luxury Wardrobe • Scent • Tri-State Radar</p>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="switchTab('camera')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95">
-        <i class="fa-solid fa-camera"></i>
+<body class="selection:bg-teal-accent selection:text-black">
+  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+    <div class="flex justify-between items-center mb-2">
+      <div class="flex items-center gap-3">
+        <button onclick="toggleDrawer()" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95 shadow">
+          <i class="fa-solid fa-sliders text-base"></i>
+        </button>
+        <div>
+          <h1 class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-teal-accent via-diamond to-purple-glow">TOY'S CLOSET</h1>
+          <span id="current-mode-label" class="text-[10px] tracking-widest uppercase font-bold text-teal-accent">Mode: Work / Executive</span>
+        </div>
+      </div>
+      <button onclick="openCameraModal()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-diamond bg-gradient-to-tr from-teal-deep to-purple-royal border border-teal-accent/50 active:scale-95 shadow-lg">
+        <i class="fa-solid fa-camera text-base text-teal-accent"></i>
       </button>
     </div>
+
+    <nav class="flex gap-2 overflow-x-auto hide-scrollbar pt-2 pb-1 text-xs whitespace-nowrap">
+      <button onclick="switchTab('closet')" id="tab-btn-closet" class="px-4 py-2 rounded-xl font-bold bg-teal-accent text-slate-950">My Closet</button>
+      <button onclick="switchTab('avatar')" id="tab-btn-avatar" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">AI Body Mirror</button>
+      <button onclick="switchTab('purses')" id="tab-btn-purses" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Purses & Trios</button>
+      <button onclick="switchTab('pinterest')" id="tab-btn-pinterest" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Pinterest</button>
+      <button onclick="switchTab('accessories')" id="tab-btn-accessories" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Glam & Accs</button>
+      <button onclick="switchTab('sales')" id="tab-btn-sales" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Brand FYP</button>
+      <button onclick="switchTab('scent')" id="tab-btn-scent" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Scent</button>
+      <button onclick="switchTab('outlook')" id="tab-btn-outlook" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Outlook & Nails</button>
+    </nav>
   </header>
 
-  <!-- Viewports -->
-  <main id="app-content">
-
-    <!-- CLOSET VIEW -->
-    <section id="tab-closet" class="space-y-4">
-      <div class="glass-card rounded-2xl p-4 neon-border">
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-xs text-teal-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 3D Glam Mirror</span>
-          <span class="text-xs bg-purple-royal px-2.5 py-0.5 rounded-full border border-purple-vibrant text-diamond">Tonight's Fit</span>
-        </div>
-        <div class="flex items-center gap-4 py-2">
-          <div class="w-24 h-28 rounded-xl bg-gradient-to-b from-purple-900 to-black border border-silver/30 overflow-hidden flex flex-col items-center justify-center relative shadow-lg">
-            <i class="fa-solid fa-user-astronaut text-4xl text-silver/80 mb-1"></i>
-            <span class="text-[9px] text-teal-accent font-mono font-bold tracking-widest">GLAM 4K</span>
-          </div>
-          <div class="flex-1 space-y-1">
-            <h3 class="font-bold text-diamond text-sm">Silk Emerald Trousers & Silver Heels</h3>
-            <p class="text-xs text-silver">Hair: Knotless Braids • Waist Length</p>
-            <p class="text-xs text-silver">Glam: Bronze Glow • Velvet Brown Lip</p>
-            <div class="flex gap-2 pt-1">
-              <span class="text-[10px] bg-teal-dark/60 text-teal-accent px-2 py-0.5 rounded border border-teal-accent/30">Silk Blend</span>
-              <span class="text-[10px] bg-purple-royal/80 text-purple-glow px-2 py-0.5 rounded border border-purple-vibrant/30">Tri-State Ready</span>
-            </div>
-          </div>
-        </div>
+  <aside id="side-drawer" class="fixed inset-y-0 left-0 w-72 bg-slate-950/95 border-r border-slate-800 z-50 p-5 transform -translate-x-full transition-transform duration-300 ease-in-out glass-card flex flex-col justify-between">
+    <div class="space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <span class="text-sm font-black text-diamond tracking-wider">WARDROBE PROFILE</span>
+        <button onclick="toggleDrawer()" class="text-silver text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
+      <button onclick="setMode('work')" id="mode-work-btn" class="w-full p-4 rounded-2xl border border-teal-accent/60 bg-teal-dark/40 text-left">
+        <p class="text-sm font-bold text-diamond">Work / Executive</p>
+        <p class="text-[11px] text-silver">Tailored Silk Suits, Blouses & Pumps</p>
+      </button>
+      <button onclick="setMode('workout')" id="mode-workout-btn" class="w-full p-4 rounded-2xl border border-slate-800 bg-slate-900/60 text-left">
+        <p class="text-sm font-bold text-diamond">Workout / Athleisure</p>
+        <p class="text-[11px] text-silver">High-Waist Sets, Runners & Gym Totes</p>
+      </button>
+    </div>
+  </aside>
+  <div id="drawer-backdrop" onclick="toggleDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden"></div>
 
-      <h2 class="text-sm font-semibold tracking-wider text-silver uppercase mt-4 mb-2">Wardrobe Vault</h2>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
-          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
-            <i class="fa-solid fa-vest-patches text-3xl"></i>
-          </div>
+  <div id="camera-modal" class="fixed inset-0 bg-black/80 z-50 flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="glass-card w-full max-w-sm rounded-3xl p-5 border border-teal-accent/50 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-diamond text-sm">Add Item to Wardrobe</h3>
+        <button onclick="closeCameraModal()" class="text-silver"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <input type="file" id="camera-live-input" accept="image/*" capture="environment" class="hidden" onchange="handleImageAdded(this)">
+      <input type="file" id="gallery-multi-input" accept="image/*" multiple class="hidden" onchange="handleImageAdded(this)">
+      <button onclick="document.getElementById('camera-live-input').click()" class="w-full py-3.5 bg-gradient-to-r from-teal-deep to-teal-accent/80 text-black font-bold rounded-2xl">Take a Pic Now</button>
+      <button onclick="document.getElementById('gallery-multi-input').click()" class="w-full py-3.5 bg-slate-900 border border-slate-700 text-diamond font-bold rounded-2xl">Upload / Multi-Photo Select</button>
+    </div>
+  </div>
+
+  <main class="p-4">
+    <section id="view-closet" class="space-y-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-base font-extrabold uppercase text-diamond">Full Wardrobe Inventory</h2>
+      </div>
+      <div id="closet-grid" class="grid grid-cols-2 gap-3 min-h-[75vh]">
+        <div class="glass-card p-3 rounded-2xl border border-slate-700/60">
+          <div class="h-32 rounded-xl bg-gradient-to-br from-teal-deep to-slate-900 mb-2 flex items-center justify-center text-teal-accent"><i class="fa-solid fa-vest-patches text-3xl"></i></div>
           <p class="text-xs font-bold text-diamond">Electric Teal Silk Blazer</p>
-          <p class="text-[10px] text-silver">Zara Limited Edition</p>
+          <button onclick="selectFitItem(this)" class="w-full mt-2 py-1 bg-white/10 text-diamond text-[11px] font-bold rounded-lg">Select for Fit</button>
         </div>
-        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
-          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
-            <i class="fa-solid fa-shoe-prints text-3xl"></i>
-          </div>
+        <div class="glass-card p-3 rounded-2xl border border-slate-700/60">
+          <div class="h-32 rounded-xl bg-gradient-to-br from-purple-royal to-slate-900 mb-2 flex items-center justify-center text-purple-glow"><i class="fa-solid fa-shoe-prints text-3xl"></i></div>
           <p class="text-xs font-bold text-diamond">Metallic Silver Stilettos</p>
-          <p class="text-[10px] text-silver">Aquazzura • 105mm</p>
+          <button onclick="selectFitItem(this)" class="w-full mt-2 py-1 bg-white/10 text-diamond text-[11px] font-bold rounded-lg">Select for Fit</button>
+        </div>
+      </div>
+    </section>
+    <section id="view-avatar" class="hidden space-y-4">
+      <div class="glass-card rounded-3xl p-5 neon-border text-center">
+        <h2 class="text-base font-extrabold text-diamond uppercase mb-1">3D Body & Glam Avatar</h2>
+        <div class="w-40 h-56 mx-auto rounded-2xl bg-gradient-to-b from-purple-900 to-black border-2 border-teal-accent/50 flex flex-col items-center justify-center mb-4">
+          <i class="fa-solid fa-user-ninja text-6xl text-silver/80"></i>
+          <span class="mt-2 text-xs font-bold text-diamond">Toya • Curated Avatar</span>
+        </div>
+        <div class="space-y-3 text-left glass-card p-4 rounded-2xl border border-slate-800 text-xs">
+          <div><p class="text-silver mb-1">Skin Tone & Radiance</p><input type="range" class="w-full accent-teal-accent" min="1" max="5" value="4"></div>
+          <div><p class="text-silver mb-1">Protective Style</p><select class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-diamond"><option>Waist-Length Knotless Box Braids</option><option>Silk Press (Middle Part)</option><option>Textured High Puff</option></select></div>
+          <div><p class="text-silver mb-1">Body Silhouette</p><input type="range" class="w-full accent-purple-glow" min="1" max="100" value="75"></div>
         </div>
       </div>
     </section>
 
-    <!-- SCENT VIEW -->
-    <section id="tab-scent" class="hidden space-y-4">
-      <div class="glass-card rounded-2xl p-5 border border-purple-vibrant/40">
-        <div class="flex items-center gap-2 mb-3">
-          <i class="fa-solid fa-spray-can-sparkles text-teal-accent text-lg"></i>
-          <h2 class="text-base font-bold text-diamond">All-Day Scent Layer Profile</h2>
+    <section id="view-purses" class="hidden space-y-4">
+      <h2 class="text-base font-extrabold text-diamond uppercase">Purses, Makeup & Fragrance Trios</h2>
+      <div class="glass-card rounded-2xl p-4 border border-teal-accent/30 space-y-2">
+        <h3 class="text-sm font-bold text-diamond">Telfar Medium Shopping Bag (Dark Teal)</h3>
+        <p class="text-xs text-silver"><strong class="text-teal-accent">Makeup:</strong> Cocoa lip liner + gold gloss</p>
+        <p class="text-xs text-silver"><strong class="text-purple-glow">Scent:</strong> Amber Cashmere + Baccarat Rouge 540</p>
+      </div>
+      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/30 space-y-2">
+        <h3 class="text-sm font-bold text-diamond">Saint Laurent Uptown Leather Pouch</h3>
+        <p class="text-xs text-silver"><strong class="text-teal-accent">Makeup:</strong> Deep berry velvet matte lip</p>
+        <p class="text-xs text-silver"><strong class="text-purple-glow">Scent:</strong> Kilian Angels' Share + Santal 33</p>
+      </div>
+    </section>
+
+    <section id="view-pinterest" class="hidden space-y-3">
+      <div class="flex justify-between items-center"><h2 class="text-base font-extrabold text-diamond uppercase">Pinterest Vault Sync</h2><button onclick="alert('Refreshed!')" class="text-teal-accent"><i class="fa-solid fa-arrows-rotate"></i></button></div>
+      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-teal-accent uppercase mb-2">Seasonal Fits</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Velvet Trench</div><div class="p-3 bg-black/40 rounded-xl">Cashmere Layers</div><div class="p-3 bg-black/40 rounded-xl">Tailored Leather</div></div></div>
+      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-purple-glow uppercase mb-2">Fine Jewelry</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Tennis Choker</div><div class="p-3 bg-black/40 rounded-xl">Baguette Cuffs</div><div class="p-3 bg-black/40 rounded-xl">Chunky Hoops</div></div></div>
+      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-diamond uppercase mb-2">Sneakers & Boots</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Jordan 4 Retro</div><div class="p-3 bg-black/40 rounded-xl">Stiletto Boot</div><div class="p-3 bg-black/40 rounded-xl">Chelsea Lug</div></div></div>
+    </section>
+
+    <section id="view-accessories" class="hidden space-y-3">
+      <h2 class="text-base font-extrabold text-diamond uppercase">Makeup & Accessories</h2>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div class="glass-card p-3 rounded-2xl"><p class="text-teal-accent font-bold">Glam Makeup</p><p class="text-silver mt-1">Fenty Eaze Drop + Cocoa Gloss</p></div>
+        <div class="glass-card p-3 rounded-2xl"><p class="text-purple-glow font-bold">Eyewear</p><p class="text-silver mt-1">Cartier Frameless C Décor</p></div>
+        <div class="glass-card p-3 rounded-2xl"><p class="text-teal-accent font-bold">Contacts</p><p class="text-silver mt-1">Acuvue Oasys + Hazel Glow</p></div>
+        <div class="glass-card p-3 rounded-2xl"><p class="text-diamond font-bold">Jewelry</p><p class="text-silver mt-1">Silver Moissanite Tennis Links</p></div>
+      </div>
+    </section>
+
+    <section id="view-sales" class="hidden">
+      <div class="glass-card p-3 rounded-2xl border border-slate-800 mb-3 flex gap-2">
+        <input type="text" id="new-brand-input" placeholder="Add brand to track (e.g. Telfar, Alo)..." class="flex-1 bg-black/40 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-diamond">
+        <button onclick="addTrackedBrand()" class="px-3 py-1.5 bg-teal-accent text-slate-950 font-bold text-xs rounded-xl">Track</button>
+      </div>
+      <div class="fyp-container space-y-4" id="brand-fyp-feed">
+        <div class="fyp-card glass-card rounded-3xl p-5 border border-teal-accent/50 flex flex-col justify-between">
+          <div><span class="px-3 py-1 bg-teal-dark text-teal-accent text-xs font-bold rounded-full">BRAND: AQUAZZURA</span><h3 class="text-xl font-black text-diamond mt-2">Crystal & Metallic Heel Drop</h3><p class="text-xs text-silver mt-1">50% off VIP private drop on 105mm pumps.</p></div>
+          <button class="w-full py-2.5 bg-teal-accent text-black font-bold text-xs rounded-xl">View Brand Drop</button>
         </div>
-        <div class="space-y-3">
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span class="text-[10px] font-bold text-teal-accent uppercase">Base Foundation</span>
-            <p class="text-sm font-bold text-diamond">Amber Cashmere + Tahitian Vanilla Oil</p>
-            <p class="text-xs text-silver">Pulse points directly post-shower.</p>
-          </div>
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span class="text-[10px] font-bold text-purple-glow uppercase">Heart Projection</span>
-            <p class="text-sm font-bold text-diamond">Baccarat Rouge 540 Eau de Parfum</p>
-            <p class="text-xs text-silver">Collarbone, wrists, and silk outerwear.</p>
-          </div>
-          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-            <span class="text-[10px] font-bold text-diamond uppercase">Top Accents & Sillage</span>
-            <p class="text-sm font-bold text-diamond">Bergamot & Pink Pepper Spritz</p>
-            <p class="text-xs text-silver">Projection active: 10+ hours.</p>
-          </div>
+      </div>
+    </section>
+    <section id="view-avatar" class="hidden space-y-4">
+      <div class="glass-card rounded-3xl p-5 neon-border text-center">
+        <h2 class="text-base font-extrabold text-diamond uppercase mb-1">3D Body & Glam Avatar</h2>
+        <div class="w-40 h-56 mx-auto rounded-2xl bg-gradient-to-b from-purple-900 to-black border-2 border-teal-accent/50 flex flex-col items-center justify-center mb-4">
+          <i class="fa-solid fa-user-ninja text-6xl text-silver/80"></i>
+          <span class="mt-2 text-xs font-bold text-diamond">Toya • Curated Avatar</span>
+        </div>
+        <div class="space-y-3 text-left glass-card p-4 rounded-2xl border border-slate-800 text-xs">
+          <div><p class="text-silver mb-1">Skin Tone & Radiance</p><input type="range" class="w-full accent-teal-accent" min="1" max="5" value="4"></div>
+          <div><p class="text-silver mb-1">Protective Style</p><select class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-diamond"><option>Waist-Length Knotless Box Braids</option><option>Silk Press (Middle Part)</option><option>Textured High Puff</option></select></div>
+          <div><p class="text-silver mb-1">Body Silhouette</p><input type="range" class="w-full accent-purple-glow" min="1" max="100" value="75"></div>
         </div>
       </div>
     </section>
 
-    <!-- RADAR VIEW -->
-    <section id="tab-events" class="hidden space-y-4">
-      <div class="glass-card rounded-2xl p-4 border border-teal-accent/30">
-        <h2 class="text-sm font-bold text-teal-accent uppercase tracking-wider mb-2">
-          <i class="fa-solid fa-location-dot mr-1"></i> Tri-State Events Radar
-        </h2>
-        <div class="space-y-2">
-          <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
-            <div>
-              <p class="text-xs font-bold text-diamond">SoHo Rooftop Cigar & Cognac</p>
-              <p class="text-[10px] text-silver">Manhattan, NY • Jewel-Tone Silk</p>
-            </div>
-            <span class="text-xs text-teal-accent font-bold">This Friday</span>
-          </div>
-          <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
-            <div>
-              <p class="text-xs font-bold text-diamond">Hudson Valley Reserve R&B Tasting</p>
-              <p class="text-[10px] text-silver">Orange County, NY • Live Soul Band</p>
-            </div>
-            <span class="text-xs text-purple-glow font-bold">Next Saturday</span>
-          </div>
-        </div>
+    <section id="view-purses" class="hidden space-y-4">
+      <h2 class="text-base font-extrabold text-diamond uppercase">Purses, Makeup & Fragrance Trios</h2>
+      <div class="glass-card rounded-2xl p-4 border border-teal-accent/30 space-y-2">
+        <h3 class="text-sm font-bold text-diamond">Telfar Medium Shopping Bag (Dark Teal)</h3>
+        <p class="text-xs text-silver"><strong class="text-teal-accent">Makeup:</strong> Cocoa lip liner + gold gloss</p>
+        <p class="text-xs text-silver"><strong class="text-purple-glow">Scent:</strong> Amber Cashmere + Baccarat Rouge 540</p>
       </div>
-
-      <div class="glass-card rounded-2xl p-4 border border-slate-700/40">
-        <h2 class="text-sm font-bold text-diamond uppercase tracking-wider mb-2">
-          <i class="fa-solid fa-tag text-teal-accent mr-1"></i> Outlets Price Tracker
-        </h2>
-        <div class="space-y-2">
-          <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
-            <div>
-              <p class="text-xs font-bold text-diamond">Woodbury Common Outlets</p>
-              <p class="text-[10px] text-teal-accent">Saks OFF 5TH: Designer Shoes 65% Off</p>
-            </div>
-            <span class="text-[10px] bg-teal-dark text-teal-accent px-2 py-0.5 rounded">Woodbury, NY</span>
-          </div>
-        </div>
+      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/30 space-y-2">
+        <h3 class="text-sm font-bold text-diamond">Saint Laurent Uptown Leather Pouch</h3>
+        <p class="text-xs text-silver"><strong class="text-teal-accent">Makeup:</strong> Deep berry velvet matte lip</p>
+        <p class="text-xs text-silver"><strong class="text-purple-glow">Scent:</strong> Kilian Angels' Share + Santal 33</p>
       </div>
     </section>
 
-    <!-- PLANNER VIEW -->
-    <section id="tab-planner" class="hidden space-y-4">
-      <div class="glass-card rounded-2xl p-4 border border-silver/20">
-        <h2 class="text-sm font-bold text-diamond uppercase tracking-wider mb-3">Weekly Outfit Calendar</h2>
-        <div class="space-y-2">
-          <div class="p-3 bg-slate-900/60 rounded-xl border-l-4 border-teal-accent flex justify-between items-center">
-            <div>
-              <p class="text-xs font-bold text-diamond">Tonight's Dinner</p>
-              <p class="text-[11px] text-silver">Silk Emerald Trousers & Silver Heels</p>
-            </div>
-            <span class="text-[10px] text-teal-accent font-mono">CONFIRMED</span>
-          </div>
+    <section id="view-pinterest" class="hidden space-y-3">
+      <div class="flex justify-between items-center"><h2 class="text-base font-extrabold text-diamond uppercase">Pinterest Vault Sync</h2><button onclick="alert('Refreshed!')" class="text-teal-accent"><i class="fa-solid fa-arrows-rotate"></i></button></div>
+      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-teal-accent uppercase mb-2">Seasonal Fits</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Velvet Trench</div><div class="p-3 bg-black/40 rounded-xl">Cashmere Layers</div><div class="p-3 bg-black/40 rounded-xl">Tailored Leather</div></div></div>
+      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-purple-glow uppercase mb-2">Fine Jewelry</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Tennis Choker</div><div class="p-3 bg-black/40 rounded-xl">Baguette Cuffs</div><div class="p-3 bg-black/40 rounded-xl">Chunky Hoops</div></div></div>
+      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-diamond uppercase mb-2">Sneakers & Boots</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Jordan 4 Retro</div><div class="p-3 bg-black/40 rounded-xl">Stiletto Boot</div><div class="p-3 bg-black/40 rounded-xl">Chelsea Lug</div></div></div>
+    </section>
+
+    <section id="view-accessories" class="hidden space-y-3">
+      <h2 class="text-base font-extrabold text-diamond uppercase">Makeup & Accessories</h2>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div class="glass-card p-3 rounded-2xl"><p class="text-teal-accent font-bold">Glam Makeup</p><p class="text-silver mt-1">Fenty Eaze Drop + Cocoa Gloss</p></div>
+        <div class="glass-card p-3 rounded-2xl"><p class="text-purple-glow font-bold">Eyewear</p><p class="text-silver mt-1">Cartier Frameless C Décor</p></div>
+        <div class="glass-card p-3 rounded-2xl"><p class="text-teal-accent font-bold">Contacts</p><p class="text-silver mt-1">Acuvue Oasys + Hazel Glow</p></div>
+        <div class="glass-card p-3 rounded-2xl"><p class="text-diamond font-bold">Jewelry</p><p class="text-silver mt-1">Silver Moissanite Tennis Links</p></div>
+      </div>
+    </section>
+
+    <section id="view-sales" class="hidden">
+      <div class="glass-card p-3 rounded-2xl border border-slate-800 mb-3 flex gap-2">
+        <input type="text" id="new-brand-input" placeholder="Add brand to track (e.g. Telfar, Alo)..." class="flex-1 bg-black/40 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-diamond">
+        <button onclick="addTrackedBrand()" class="px-3 py-1.5 bg-teal-accent text-slate-950 font-bold text-xs rounded-xl">Track</button>
+      </div>
+      <div class="fyp-container space-y-4" id="brand-fyp-feed">
+        <div class="fyp-card glass-card rounded-3xl p-5 border border-teal-accent/50 flex flex-col justify-between">
+          <div><span class="px-3 py-1 bg-teal-dark text-teal-accent text-xs font-bold rounded-full">BRAND: AQUAZZURA</span><h3 class="text-xl font-black text-diamond mt-2">Crystal & Metallic Heel Drop</h3><p class="text-xs text-silver mt-1">50% off VIP private drop on 105mm pumps.</p></div>
+          <button class="w-full py-2.5 bg-teal-accent text-black font-bold text-xs rounded-xl">View Brand Drop</button>
         </div>
       </div>
     </section>
-
-    <!-- SNAP INGESTION VIEW -->
-    <section id="tab-camera" class="hidden space-y-4">
-      <div class="glass-card rounded-2xl p-6 text-center border border-teal-accent/50 neon-border">
-        <i class="fa-solid fa-camera-retro text-4xl text-teal-accent mb-3"></i>
-        <h2 class="text-lg font-bold text-diamond mb-1">Wardrobe AI Scanner</h2>
-        <p class="text-xs text-silver mb-4">Snap items to auto-categorize fabric and tone-matching.</p>
-        <input type="file" accept="image/*" capture="environment" id="camera-file" class="hidden" onchange="alert('Item added to your wardrobe!')">
-        <button onclick="document.getElementById('camera-file').click()" class="w-full py-3 bg-gradient-to-r from-teal-deep to-purple-royal rounded-xl font-bold text-diamond border border-teal-accent/50 shadow-lg active:scale-95">
-          Take Photo / Upload
-        </button>
+    <section id="view-scent" class="hidden space-y-3">
+      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/40 space-y-2">
+        <h2 class="text-sm font-bold text-teal-accent uppercase">All-Day Scent Layer Profile</h2>
+        <p class="text-xs text-silver"><strong class="text-diamond">Base:</strong> Amber Cashmere + Tahitian Vanilla Oil</p>
+        <p class="text-xs text-silver"><strong class="text-diamond">Heart:</strong> Baccarat Rouge 540 Eau de Parfum</p>
+        <p class="text-xs text-silver"><strong class="text-diamond">Top:</strong> Bergamot & Pink Pepper Spritz (10+ hr projection)</p>
       </div>
     </section>
 
+    <section id="view-outlook" class="hidden space-y-3">
+      <div class="glass-card rounded-2xl p-4 border border-teal-accent/40 space-y-2">
+        <h2 class="text-xs font-bold uppercase text-teal-accent">Connected Outlook Inboxes</h2>
+        <p class="text-xs text-diamond">LReed@netsysgroup.com • <span class="text-teal-accent">SYNCED</span></p>
+        <p class="text-xs text-diamond">reedl1sunypoly.edu • <span class="text-purple-glow">SYNCED</span></p>
+      </div>
+      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/40">
+        <h2 class="text-xs font-bold uppercase text-diamond mb-2">14-Day Nail Rotation (Starts Oct 16)</h2>
+        <div class="space-y-1.5 max-h-60 overflow-y-auto text-xs pr-1">
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 16:</span> Teal Chrome French Tips</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 17:</span> Plum Velvet Cat-Eye</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-silver"><span class="text-silver font-bold">Oct 18:</span> Glazed Cocoa Nude</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 19:</span> Matte Black & Emerald Swirl</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 20:</span> Rose Gold Ombré</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 21:</span> Negative Space Geometry</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-vibrant"><span class="text-silver font-bold">Oct 22:</span> Purple Aura & Chrome Drops</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 23:</span> Mirrored Silver Chrome</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 24:</span> Midnight Wine Velvet</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-silver"><span class="text-silver font-bold">Oct 25:</span> Milky White Platinum Dust</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 26:</span> Forest Green & Gold Leaf</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 27:</span> Smoky Marble Quartz</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 28:</span> Cyan Chrome on Nude Base</div>
+          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-vibrant"><span class="text-silver font-bold">Oct 29:</span> Royal Amethyst Crystals</div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Bottom Navigation -->
-  <nav class="fixed bottom-0 left-0 right-0 glass-card bg-slate-950/90 border-t border-slate-800 px-6 py-3 flex justify-between items-center z-50">
-    <button onclick="switchTab('closet')" id="nav-closet" class="flex flex-col items-center text-teal-accent text-xs">
-      <i class="fa-solid fa-shirt text-lg mb-0.5"></i>
-      <span>Closet</span>
-    </button>
-    <button onclick="switchTab('scent')" id="nav-scent" class="flex flex-col items-center text-silver text-xs">
-      <i class="fa-solid fa-spray-can-sparkles text-lg mb-0.5"></i>
-      <span>Scent</span>
-    </button>
-    <button onclick="switchTab('events')" id="nav-events" class="flex flex-col items-center text-silver text-xs">
-      <i class="fa-solid fa-martini-glass-citrus text-lg mb-0.5"></i>
-      <span>Radar</span>
-    </button>
-    <button onclick="switchTab('planner')" id="nav-planner" class="flex flex-col items-center text-silver text-xs">
-      <i class="fa-solid fa-calendar-days text-lg mb-0.5"></i>
-      <span>Plan</span>
-    </button>
-  </nav>
-
   <script>
-    function switchTab(tabId) {
-      const tabs = ['closet', 'scent', 'events', 'planner', 'camera'];
+    const tabs = ["closet", "avatar", "purses", "pinterest", "accessories", "sales", "scent", "outlook"];
+    function switchTab(tId) {
       tabs.forEach(t => {
-        const el = document.getElementById('tab-' + t);
-        if (el) el.classList.add('hidden');
-        const nav = document.getElementById('nav-' + t);
-        if (nav) {
-          nav.classList.remove('text-teal-accent');
-          nav.classList.add('text-silver');
-        }
+        const v = document.getElementById("view-" + t); if (v) v.classList.add("hidden");
+        const b = document.getElementById("tab-btn-" + t); if (b) { b.classList.remove("bg-teal-accent", "text-slate-950", "font-bold"); b.classList.add("glass-card", "text-silver"); }
       });
-      const activeEl = document.getElementById('tab-' + tabId);
-      if (activeEl) activeEl.classList.remove('hidden');
-      const activeNav = document.getElementById('nav-' + tabId);
-      if (activeNav) {
-        activeNav.classList.add('text-teal-accent');
-        activeNav.classList.remove('text-silver');
-      }
+      const av = document.getElementById("view-" + tId); if (av) av.classList.remove("hidden");
+      const ab = document.getElementById("tab-btn-" + tId); if (ab) { ab.classList.remove("glass-card", "text-silver"); ab.classList.add("bg-teal-accent", "text-slate-950", "font-bold"); }
     }
-
-    function checkDeepLink() {
-      const hash = window.location.hash.replace('#', '');
-      if (hash && ['closet', 'scent', 'events', 'planner', 'camera'].includes(hash)) {
-        switchTab(hash);
-      }
+    function toggleDrawer() {
+      const d = document.getElementById("side-drawer"), b = document.getElementById("drawer-backdrop");
+      if (d.classList.contains("-translate-x-full")) { d.classList.remove("-translate-x-full"); b.classList.remove("hidden"); }
+      else { d.classList.add("-translate-x-full"); b.classList.add("hidden"); }
     }
-    window.addEventListener('hashchange', checkDeepLink);
-    window.addEventListener('DOMContentLoaded', checkDeepLink);
+    function setMode(m) {
+      document.getElementById("current-mode-label").innerText = m === 'work' ? 'Mode: Work / Executive' : 'Mode: Workout / Athleisure';
+      toggleDrawer();
+    }
+    function openCameraModal() { document.getElementById("camera-modal").classList.remove("hidden"); }
+    function closeCameraModal() { document.getElementById("camera-modal").classList.add("hidden"); }
+    function handleImageAdded(i) { closeCameraModal(); alert("Added " + (i.files ? i.files.length : 1) + " item(s)!"); }
+    function selectFitItem(b) {
+      b.classList.toggle("bg-teal-accent"); b.classList.toggle("text-black");
+      b.innerText = b.classList.contains("bg-teal-accent") ? "✓ Selected in Fit" : "Select for Fit";
+    }
+    function addTrackedBrand() {
+      const input = document.getElementById("new-brand-input"); if (!input.value.trim()) return;
+      const feed = document.getElementById("brand-fyp-feed");
+      const div = document.createElement("div");
+      div.className = "fyp-card glass-card rounded-3xl p-5 border border-teal-accent/50 flex flex-col justify-between";
+      div.innerHTML = `<div><span class="px-3 py-1 bg-teal-dark text-teal-accent text-xs font-bold rounded-full">BRAND: ${input.value.toUpperCase()}</span><h3 class="text-xl font-black text-diamond mt-2">${input.value} Drop</h3><p class="text-xs text-silver mt-1">Real-time alerts active for price drops.</p></div><button class="w-full py-2.5 bg-teal-accent text-black font-bold text-xs rounded-xl">View Trend</button>`;
+      feed.prepend(div); input.value = "";
+    }
   </script>
 </body>
 </html>
