@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Toy's Wardrobe & Glam Closet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: { accent: '#00F0FF', deep: '#004D40', dark: '#002B24' },
+            purple: { royal: '#23053F', vibrant: '#7928CA', glow: '#9D4EDD' },
+            diamond: '#F8FAFC',
+            silver: '#CBD5E1'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at top right, #23053F 0%, #050b14 60%, #002B24 100%);
+      color: #F8FAFC;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(203, 213, 225, 0.15);
+    }
+    .neon-border {
+      border: 1px solid #00F0FF;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+  </style>
+</head>
+<body class="p-4 selection:bg-teal-accent selection:text-black">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center py-4 mb-4 border-b border-slate-700/60">
+    <div>
+      <h1 class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-teal-accent via-diamond to-purple-glow">
+        TOY'S CLOSET
+      </h1>
+      <p class="text-xs text-silver tracking-widest uppercase">Luxury Wardrobe • Scent • Radar</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="switchTab('camera')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95">
+        <i class="fa-solid fa-camera"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Switcher -->
+  <main id="app-content">
+
+    <!-- TAB 1: CLOSET -->
+    <section id="tab-closet" class="space-y-4">
+      <div class="glass-card rounded-2xl p-4 neon-border">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-teal-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-sparkles mr-1"></i> 3D Glam Mirror</span>
+          <span class="text-xs bg-purple-royal px-2.5 py-0.5 rounded-full border border-purple-vibrant text-diamond">Silk & Velvet Night</span>
+        </div>
+        <div class="flex items-center gap-4 py-2">
+          <div class="w-20 h-24 rounded-xl bg-gradient-to-b from-purple-900 to-black border border-silver/30 overflow-hidden flex items-center justify-center relative shadow-lg">
+            <i class="fa-solid fa-user-astronaut text-3xl text-silver/80"></i>
+            <span class="absolute bottom-1 text-[9px] text-teal-accent font-mono font-bold">4K AVATAR</span>
+          </div>
+          <div class="flex-1 space-y-1">
+            <h3 class="font-bold text-diamond text-sm">Deep Jewel-Tone Emerald Suit</h3>
+            <p class="text-xs text-silver">Hair: Sleek Middle Part Knotless Braids</p>
+            <p class="text-xs text-silver">Glam: Bronze Glow + Glossy Cocoa Lip</p>
+            <div class="flex gap-2 pt-1">
+              <span class="text-[10px] bg-teal-dark/60 text-teal-accent px-2 py-0.5 rounded border border-teal-accent/30">Silk Blend</span>
+              <span class="text-[10px] bg-purple-royal/80 text-purple-glow px-2 py-0.5 rounded border border-purple-vibrant/30">Tri-State Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <h2 class="text-sm font-semibold tracking-wider text-silver uppercase mt-4 mb-2">Wardrobe Collection</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
+          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
+            <i class="fa-solid fa-vest-patches text-2xl"></i>
+          </div>
+          <p class="text-xs font-bold text-diamond">Electric Teal Silk Blazer</p>
+          <p class="text-[10px] text-silver">Zara Limited Edition • Tagged</p>
+        </div>
+        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
+          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
+            <i class="fa-solid fa-shoe-prints text-2xl"></i>
+          </div>
+          <p class="text-xs font-bold text-diamond">Metallic Silver Stilettos</p>
+          <p class="text-[10px] text-silver">Aquazzura • 105mm</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: SCENT PROFILER -->
+    <section id="tab-scent" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-5 border border-purple-vibrant/40">
+        <div class="flex items-center gap-2 mb-3">
+          <i class="fa-solid fa-spray-can-sparkles text-teal-accent text-lg"></i>
+          <h2 class="text-base font-bold text-diamond">All-Day Scent Layer Profile</h2>
+        </div>
+        
+        <div class="space-y-3">
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-teal-accent uppercase">Base Note Foundation</span>
+            <p class="text-sm font-bold text-diamond">Amber Cashmere + Tahitian Vanilla Oil</p>
+            <p class="text-xs text-silver">Pulse points directly out of shower.</p>
+          </div>
+
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-purple-glow uppercase">Heart Projection Layer</span>
+            <p class="text-sm font-bold text-diamond">Maison Francis Kurkdjian Baccarat Rouge 540</p>
+            <p class="text-xs text-silver">Mist collarbone, wrists, and hair diffuser.</p>
+          </div>
+
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-diamond uppercase">Top Accents & Sillage Duration</span>
+            <p class="text-sm font-bold text-diamond">Bergamot & Pink Pepper Spritz</p>
+            <p class="text-xs text-silver">All-day projected trail: 10+ hours active.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TRI-STATE EVENTS RADAR -->
+    <section id="tab-events" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-teal-accent/30">
+        <h2 class="text-sm font-bold text-teal-accent uppercase tracking-wider mb-2">
+          <i class="fa-solid fa-location-dot mr-1"></i> Tri-State Events & Lounges Radar
+        </h2>
+        <p class="text-xs text-silver mb-3">Curated live R&B nights, rooftop jazz, and premium wine & cigar lounges in Hudson Valley & NYC.</p>
+
+        <div class="space-y-2">
+          <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">SoHo Rooftop Cigar & Cognac</p>
+              <p class="text-[10px] text-silver">Manhattan, NY • Dress Code: Silk Jewel-Tones</p>
+            </div>
+            <span class="text-xs text-teal-accent font-bold">This Friday</span>
+          </div>
+
+          <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">Hudson Valley Reserve R&B Tasting</p>
+              <p class="text-[10px] text-silver">Orange County, NY • Live Soul Band</p>
+            </div>
+            <span class="text-xs text-purple-glow font-bold">Next Saturday</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outlets Price Drops -->
+      <div class="glass-card rounded-2xl p-4 border border-slate-700/40">
+        <h2 class="text-sm font-bold text-diamond uppercase tracking-wider mb-2">
+          <i class="fa-solid fa-tag text-teal-accent mr-1"></i> Tracked Outlet Price Drops
+        </h2>
+        <div class="space-y-2">
+          <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">Woodbury Common Outlets</p>
+              <p class="text-[10px] text-teal-accent">Saks OFF 5TH: Designer Shoes 65% Off</p>
+            </div>
+            <span class="text-[10px] bg-teal-dark text-teal-accent px-2 py-0.5 rounded">Woodbury, NY</span>
+          </div>
+          <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">The Mills at Jersey Gardens</p>
+              <p class="text-[10px] text-purple-glow">Coach Luxury Drop Alert - VIP Pass Active</p>
+            </div>
+            <span class="text-[10px] bg-purple-royal text-diamond px-2 py-0.5 rounded">Elizabeth, NJ</span>
+          </div>
+
+d ~/toys-closet-app
+mkdir -p www
+
+cat << 'EOF' > www/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Toy's Wardrobe & Glam Closet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: { accent: '#00F0FF', deep: '#004D40', dark: '#002B24' },
+            purple: { royal: '#23053F', vibrant: '#7928CA', glow: '#9D4EDD' },
+            diamond: '#F8FAFC',
+            silver: '#CBD5E1'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at top right, #23053F 0%, #050b14 60%, #002B24 100%);
+      color: #F8FAFC;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(203, 213, 225, 0.15);
+    }
+    .neon-border {
+      border: 1px solid #00F0FF;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+  </style>
+</head>
+<body class="p-4 selection:bg-teal-accent selection:text-black">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center py-4 mb-4 border-b border-slate-700/60">
+    <div>
+      <h1 class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-teal-accent via-diamond to-purple-glow">
+        TOY'S CLOSET
+      </h1>
+      <p class="text-xs text-silver tracking-widest uppercase">Luxury Wardrobe • Scent • Radar</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="switchTab('camera')" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95">
+        <i class="fa-solid fa-camera"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Switcher -->
+  <main id="app-content">
+
+    <!-- TAB 1: CLOSET -->
+    <section id="tab-closet" class="space-y-4">
+      <div class="glass-card rounded-2xl p-4 neon-border">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-teal-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-sparkles mr-1"></i> 3D Glam Mirror</span>
+          <span class="text-xs bg-purple-royal px-2.5 py-0.5 rounded-full border border-purple-vibrant text-diamond">Silk & Velvet Night</span>
+        </div>
+        <div class="flex items-center gap-4 py-2">
+          <div class="w-20 h-24 rounded-xl bg-gradient-to-b from-purple-900 to-black border border-silver/30 overflow-hidden flex items-center justify-center relative shadow-lg">
+            <i class="fa-solid fa-user-astronaut text-3xl text-silver/80"></i>
+            <span class="absolute bottom-1 text-[9px] text-teal-accent font-mono font-bold">4K AVATAR</span>
+          </div>
+          <div class="flex-1 space-y-1">
+            <h3 class="font-bold text-diamond text-sm">Deep Jewel-Tone Emerald Suit</h3>
+            <p class="text-xs text-silver">Hair: Sleek Middle Part Knotless Braids</p>
+            <p class="text-xs text-silver">Glam: Bronze Glow + Glossy Cocoa Lip</p>
+            <div class="flex gap-2 pt-1">
+              <span class="text-[10px] bg-teal-dark/60 text-teal-accent px-2 py-0.5 rounded border border-teal-accent/30">Silk Blend</span>
+              <span class="text-[10px] bg-purple-royal/80 text-purple-glow px-2 py-0.5 rounded border border-purple-vibrant/30">Tri-State Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <h2 class="text-sm font-semibold tracking-wider text-silver uppercase mt-4 mb-2">Wardrobe Collection</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
+          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
+            <i class="fa-solid fa-vest-patches text-2xl"></i>
+          </div>
+          <p class="text-xs font-bold text-diamond">Electric Teal Silk Blazer</p>
+          <p class="text-[10px] text-silver">Zara Limited Edition • Tagged</p>
+        </div>
+        <div class="glass-card p-3 rounded-xl border border-slate-700/50">
+          <div class="h-28 rounded-lg bg-slate-800/80 mb-2 flex items-center justify-center text-silver/40">
+            <i class="fa-solid fa-shoe-prints text-2xl"></i>
+          </div>
+          <p class="text-xs font-bold text-diamond">Metallic Silver Stilettos</p>
+          <p class="text-[10px] text-silver">Aquazzura • 105mm</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: SCENT PROFILER -->
+    <section id="tab-scent" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-5 border border-purple-vibrant/40">
+        <div class="flex items-center gap-2 mb-3">
+          <i class="fa-solid fa-spray-can-sparkles text-teal-accent text-lg"></i>
+          <h2 class="text-base font-bold text-diamond">All-Day Scent Layer Profile</h2>
+        </div>
+        
+        <div class="space-y-3">
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-teal-accent uppercase">Base Note Foundation</span>
+            <p class="text-sm font-bold text-diamond">Amber Cashmere + Tahitian Vanilla Oil</p>
+            <p class="text-xs text-silver">Pulse points directly out of shower.</p>
+          </div>
+
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-purple-glow uppercase">Heart Projection Layer</span>
+            <p class="text-sm font-bold text-diamond">Maison Francis Kurkdjian Baccarat Rouge 540</p>
+            <p class="text-xs text-silver">Mist collarbone, wrists, and hair diffuser.</p>
+          </div>
+
+          <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-diamond uppercase">Top Accents & Sillage Duration</span>
+            <p class="text-sm font-bold text-diamond">Bergamot & Pink Pepper Spritz</p>
+            <p class="text-xs text-silver">All-day projected trail: 10+ hours active.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TRI-STATE EVENTS RADAR -->
+    <section id="tab-events" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-teal-accent/30">
+        <h2 class="text-sm font-bold text-teal-accent uppercase tracking-wider mb-2">
+          <i class="fa-solid fa-location-dot mr-1"></i> Tri-State Events & Lounges Radar
+        </h2>
+        <p class="text-xs text-silver mb-3">Curated live R&B nights, rooftop jazz, and premium wine & cigar lounges in Hudson Valley & NYC.</p>
+
+        <div class="space-y-2">
+          <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">SoHo Rooftop Cigar & Cognac</p>
+              <p class="text-[10px] text-silver">Manhattan, NY • Dress Code: Silk Jewel-Tones</p>
+            </div>
+            <span class="text-xs text-teal-accent font-bold">This Friday</span>
+          </div>
+
+          <div class="glass-card p-3 rounded-xl border border-slate-700/50 flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">Hudson Valley Reserve R&B Tasting</p>
+              <p class="text-[10px] text-silver">Orange County, NY • Live Soul Band</p>
+            </div>
+            <span class="text-xs text-purple-glow font-bold">Next Saturday</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outlets Price Drops -->
+      <div class="glass-card rounded-2xl p-4 border border-slate-700/40">
+        <h2 class="text-sm font-bold text-diamond uppercase tracking-wider mb-2">
+          <i class="fa-solid fa-tag text-teal-accent mr-1"></i> Tracked Outlet Price Drops
+        </h2>
+        <div class="space-y-2">
+          <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">Woodbury Common Outlets</p>
+              <p class="text-[10px] text-teal-accent">Saks OFF 5TH: Designer Shoes 65% Off</p>
+            </div>
+            <span class="text-[10px] bg-teal-dark text-teal-accent px-2 py-0.5 rounded">Woodbury, NY</span>
+          </div>
+          <div class="p-3 bg-black/40 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">The Mills at Jersey Gardens</p>
+              <p class="text-[10px] text-purple-glow">Coach Luxury Drop Alert - VIP Pass Active</p>
+            </div>
+            <span class="text-[10px] bg-purple-royal text-diamond px-2 py-0.5 rounded">Elizabeth, NJ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PLANNER & CALENDAR -->
+    <section id="tab-planner" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-4 border border-silver/20">
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="text-sm font-bold text-diamond uppercase tracking-wider">Weekly Outfit Calendar</h2>
+          <button class="text-xs text-teal-accent font-bold"><i class="fa-solid fa-calendar-plus mr-1"></i> Sync</button>
+        </div>
+        <div class="space-y-2">
+          <div class="p-3 bg-slate-900/60 rounded-xl border-l-4 border-teal-accent flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">Thursday Evening</p>
+              <p class="text-[11px] text-silver">Silk Emerald Trousers & Silver Heels</p>
+            </div>
+            <span class="text-[10px] text-teal-accent font-mono">CONFIRMED</span>
+          </div>
+          <div class="p-3 bg-slate-900/60 rounded-xl border-l-4 border-purple-vibrant flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold text-diamond">Saturday Gala & Dinner</p>
+              <p class="text-[11px] text-silver">Electric Teal Velvet Gown + Diamond Accents</p>
+            </div>
+            <span class="text-[10px] text-purple-glow font-mono">READY</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: SNAP CAMERA (INGESTION) -->
+    <section id="tab-camera" class="hidden space-y-4">
+      <div class="glass-card rounded-2xl p-6 text-center border border-teal-accent/50 neon-border">
+        <i class="fa-solid fa-camera-retro text-4xl text-teal-accent mb-3"></i>
+        <h2 class="text-lg font-bold text-diamond mb-1">Wardrobe AI Scanner</h2>
+        <p class="text-xs text-silver mb-4">Snap items to auto-categorize fabric, tone-matching, and hair/scent recommendations.</p>
+        <button class="w-full py-3 bg-gradient-to-r from-teal-deep to-purple-royal rounded-xl font-bold text-diamond border border-teal-accent/50 shadow-lg active:scale-95">
+          Take Photo / Upload
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="fixed bottom-0 left-0 right-0 glass-card bg-slate-950/90 border-t border-slate-800 px-6 py-3 flex justify-between items-center z-50">
+    <button onclick="switchTab('closet')" id="nav-closet" class="flex flex-col items-center text-teal-accent text-xs">
+      <i class="fa-solid fa-shirt text-lg mb-0.5"></i>
+      <span>Closet</span>
+    </button>
+    <button onclick="switchTab('scent')" id="nav-scent" class="flex flex-col items-center text-silver text-xs">
+      <i class="fa-solid fa-spray-can-sparkles text-lg mb-0.5"></i>
+      <span>Scent</span>
+    </button>
+    <button onclick="switchTab('events')" id="nav-events" class="flex flex-col items-center text-silver text-xs">
+      <i class="fa-solid fa-martini-glass-citrus text-lg mb-0.5"></i>
+      <span>Radar</span>
+    </button>
+    <button onclick="switchTab('planner')" id="nav-planner" class="flex flex-col items-center text-silver text-xs">
+      <i class="fa-solid fa-calendar-days text-lg mb-0.5"></i>
+      <span>Plan</span>
+    </button>
+  </nav>
+
+  <!-- Script for Deep Linking and Tab Switching -->
+  <script>
+    function switchTab(tabId) {
+      const tabs = ['closet', 'scent', 'events', 'planner', 'camera'];
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) el.classList.add('hidden');
+        const nav = document.getElementById('nav-' + t);
+        if (nav) {
+          nav.classList.remove('text-teal-accent');
+          nav.classList.add('text-silver');
+        }
+      });
+
+      const activeEl = document.getElementById('tab-' + tabId);
+      if (activeEl) activeEl.classList.remove('hidden');
+
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeNav) {
+        activeNav.classList.add('text-teal-accent');
+        activeNav.classList.remove('text-silver');
+      }
+    }
+
+    // Handle deep links from the Android Widget (e.g. #scent, #closet, #events)
+    function handleHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && ['closet', 'scent', 'events', 'planner', 'camera'].includes(hash)) {
+        switchTab(hash);
+      }
+    }
+
+    window.addEventListener('hashchange', handleHash);
+    window.addEventListener('DOMContentLoaded', handleHash);
+  </script>
+</body>
+</html>
