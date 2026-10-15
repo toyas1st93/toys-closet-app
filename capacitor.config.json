@@ -1,0 +1,11 @@
+{
+  "appId": "com.toyscloset.app",
+  "appName": "Toy's Closet",
+  "webDir": "www",
+  "server": {
+    "url": "https://toys-wardrobe.netlify.app",
+    "cleartext": true
+  }
+}
+
+
