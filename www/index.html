@@ -6,294 +6,340 @@
   <title>Toy's Wardrobe & Glam Closet</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            teal: { accent: '#00F0FF', deep: '#004D40', dark: '#002B24' },
-            purple: { royal: '#23053F', vibrant: '#7928CA', glow: '#9D4EDD' },
-            diamond: '#F8FAFC',
-            silver: '#CBD5E1'
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body { background: radial-gradient(circle at top right, #23053F 0%, #050b14 60%, #002B24 100%); color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; overflow-x: hidden; }
-    .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(203, 213, 225, 0.15); }
-    .neon-border { border: 1px solid #00F0FF; box-shadow: 0 0 14px rgba(0, 240, 255, 0.3); }
+    body { background: radial-gradient(circle at top, #14052b 0%, #050b14 60%, #001f1a 100%); color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; }
+    .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.1); }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .fyp-container { scroll-snap-type: y mandatory; overflow-y: scroll; height: calc(100vh - 180px); }
-    .fyp-card { scroll-snap-align: start; height: calc(100vh - 200px); }
   </style>
 </head>
-<body class="selection:bg-teal-accent selection:text-black">
+<body class="pb-16 selection:bg-teal-400 selection:text-black">
 
+  <!-- Header: Unified Closet (Mode Removed) -->
   <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
     <div class="flex justify-between items-center mb-2">
-      <div class="flex items-center gap-3">
-        <button onclick="toggleDrawer()" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-teal-accent border border-teal-accent/40 active:scale-95 shadow">
-          <i class="fa-solid fa-sliders text-base"></i>
-        </button>
-        <div>
-          <h1 class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-teal-accent via-diamond to-purple-glow">TOY'S CLOSET</h1>
-          <span id="current-mode-label" class="text-[10px] tracking-widest uppercase font-bold text-teal-accent">Mode: Work / Executive</span>
-        </div>
-      </div>
-      <button onclick="openCameraModal()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-diamond bg-gradient-to-tr from-teal-deep to-purple-royal border border-teal-accent/50 active:scale-95 shadow-lg">
-        <i class="fa-solid fa-camera text-base text-teal-accent"></i>
+      <h1 class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-400">
+        TOY'S CLOSET
+      </h1>
+      <button onclick="openModal()" class="px-3.5 py-1.5 rounded-full bg-cyan-400 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-lg active:scale-95">
+        <i class="fa-solid fa-camera"></i> <span>+ Add Fit</span>
       </button>
     </div>
 
-    <!-- Top Navigation Tabs -->
-    <nav class="flex gap-2 overflow-x-auto hide-scrollbar pt-2 pb-1 text-xs whitespace-nowrap">
-      <button onclick="switchTab('closet')" id="tab-btn-closet" class="px-4 py-2 rounded-xl font-bold bg-teal-accent text-slate-950">Closet</button>
-      <button onclick="switchTab('avatar')" id="tab-btn-avatar" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">AI Body</button>
-      <button onclick="switchTab('purses')" id="tab-btn-purses" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Purses & Trios</button>
-      <button onclick="switchTab('sales')" id="tab-btn-sales" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Sales</button>
-      <button onclick="switchTab('pinterest')" id="tab-btn-pinterest" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Pinterest</button>
-      <button onclick="switchTab('scent')" id="tab-btn-scent" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Scent</button>
-      <button onclick="switchTab('outlook')" id="tab-btn-outlook" class="px-4 py-2 rounded-xl font-semibold glass-card text-silver">Calendar & Nails</button>
+    <!-- Instagram-Style Horizontal Story/Tab Feed -->
+    <nav class="flex gap-2 overflow-x-auto hide-scrollbar pt-1 text-xs whitespace-nowrap">
+      <button onclick="switchTab('feed')" id="tb-feed" class="px-4 py-1.5 rounded-full font-bold bg-cyan-400 text-slate-950">Closet Feed</button>
+      <button onclick="switchTab('sales')" id="tb-sales" class="px-4 py-1.5 rounded-full font-semibold glass text-slate-300">Sales FYP</button>
+      <button onclick="switchTab('pinterest')" id="tb-pinterest" class="px-4 py-1.5 rounded-full font-semibold glass text-slate-300">Pinterest Hub</button>
+      <button onclick="switchTab('scent')" id="tb-scent" class="px-4 py-1.5 rounded-full font-semibold glass text-slate-300">Scent Vault</button>
+      <button onclick="switchTab('nails')" id="tb-nails" class="px-4 py-1.5 rounded-full font-semibold glass text-slate-300">14-Day Nails</button>
     </nav>
   </header>
 
-  <!-- Side Drawer (Work/Workout) -->
-  <aside id="side-drawer" class="fixed inset-y-0 left-0 w-72 bg-slate-950/95 border-r border-slate-800 z-50 p-5 transform -translate-x-full transition-transform duration-300 ease-in-out glass-card flex flex-col justify-between">
-    <div class="space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <span class="text-sm font-black text-diamond tracking-wider">WARDROBE MODE</span>
-        <button onclick="toggleDrawer()" class="text-silver text-lg"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <button onclick="setMode('work')" id="mode-work-btn" class="w-full p-4 rounded-2xl border border-teal-accent/60 bg-teal-dark/40 text-left">
-        <p class="text-sm font-bold text-diamond">Work / Executive</p>
-        <p class="text-[11px] text-silver">Tailored Silk Suits, Blouses & Pumps</p>
-      </button>
-      <button onclick="setMode('workout')" id="mode-workout-btn" class="w-full p-4 rounded-2xl border border-slate-800 bg-slate-900/60 text-left">
-        <p class="text-sm font-bold text-diamond">Workout / Athleisure</p>
-        <p class="text-[11px] text-silver">High-Waist Sets, Runners & Gym Totes</p>
-      </button>
-    </div>
-  </aside>
-  <div id="drawer-backdrop" onclick="toggleDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden"></div>
-
-  <!-- Camera Action Modal -->
-  <div id="camera-modal" class="fixed inset-0 bg-black/80 z-50 flex items-end sm:items-center justify-center p-4 hidden">
-    <div class="glass-card w-full max-w-sm rounded-3xl p-5 border border-teal-accent/50 space-y-4">
+  <!-- Upload Modal -->
+  <div id="cam-modal" class="fixed inset-0 bg-black/80 z-50 flex items-end sm:items-center justify-center p-4 hidden">
+    <div class="glass w-full max-w-sm rounded-3xl p-5 border border-cyan-400/40 space-y-3">
       <div class="flex justify-between items-center">
-        <h3 class="font-bold text-diamond text-sm">Add Item to Wardrobe</h3>
-        <button onclick="closeCameraModal()" class="text-silver"><i class="fa-solid fa-xmark"></i></button>
+        <h3 class="font-bold text-white text-sm">Upload to Closet</h3>
+        <button onclick="closeModal()" class="text-slate-400 text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <input type="file" id="camera-live-input" accept="image/*" capture="environment" class="hidden" onchange="handleImageAdded(this)">
-      <input type="file" id="gallery-multi-input" accept="image/*" multiple class="hidden" onchange="handleImageAdded(this)">
-      <button onclick="document.getElementById('camera-live-input').click()" class="w-full py-3.5 bg-gradient-to-r from-teal-deep to-teal-accent/80 text-black font-bold rounded-2xl">Take a Pic Now</button>
-      <button onclick="document.getElementById('gallery-multi-input').click()" class="w-full py-3.5 bg-slate-900 border border-slate-700 text-diamond font-bold rounded-2xl">Upload / Multi-Photo Select</button>
+      <input type="file" id="cam-snap" accept="image/*" capture="environment" class="hidden" onchange="ingestPhotos(this)">
+      <input type="file" id="gal-pick" accept="image/*" multiple class="hidden" onchange="ingestPhotos(this)">
+      <button onclick="document.getElementById('cam-snap').click()" class="w-full py-3 bg-gradient-to-r from-teal-700 to-cyan-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2">
+        <i class="fa-solid fa-camera"></i> Take a Pic Now
+      </button>
+      <button onclick="document.getElementById('gal-pick').click()" class="w-full py-3 bg-slate-900 border border-slate-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2">
+        <i class="fa-solid fa-images text-purple-400"></i> Gallery / Multi-Photo Select
+      </button>
     </div>
   </div>
-
   <main class="p-4 space-y-4">
-    <!-- LOOK & SMELL OF THE DAY (HOMESCREEN) -->
-    <div class="glass-card rounded-3xl p-4 neon-border relative overflow-hidden">
-      <div class="flex justify-between items-center mb-2">
-        <span class="text-[10px] font-bold text-teal-accent uppercase tracking-widest"><i class="fa-solid fa-sparkles mr-1"></i> Look & Smell of the Day</span>
-        <span class="text-[9px] bg-purple-royal px-2.5 py-0.5 rounded-full border border-purple-vibrant text-diamond">Daily Sync</span>
+    <!-- LOOK & SMELL OF THE DAY -->
+    <div class="glass rounded-3xl p-4 border border-cyan-400/40 relative">
+      <div class="flex justify-between items-center mb-1.5">
+        <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">★ Look & Smell of the Day</span>
+        <span class="text-[9px] bg-purple-900 text-purple-200 px-2 py-0.5 rounded-full font-mono">OCT 16 SYNC</span>
       </div>
-      <div class="space-y-1 text-xs">
-        <p class="font-extrabold text-diamond text-sm">Silk Emerald Trousers & Silver Heels</p>
-        <p class="text-silver"><span class="text-teal-accent font-semibold">Scent:</span> Amber Cashmere + Baccarat Rouge 540</p>
-        <p class="text-silver"><span class="text-purple-glow font-semibold">Nail Sync:</span> Teal Chrome French Tips</p>
-      </div>
+      <p class="font-black text-white text-base">Emerald Silk Tailored Trousers & Silver Stilettos</p>
+      <p class="text-xs text-slate-300 mt-1"><span class="text-cyan-400 font-semibold">Fragrance:</span> Amber Cashmere + Baccarat Rouge 540</p>
+      <p class="text-xs text-slate-300"><span class="text-purple-400 font-semibold">Nails:</span> Electric Teal Chrome French Tips</p>
     </div>
-    <!-- CLOSET VIEW WITH INTERACTIVE CATEGORY TABS -->
-    <section id="view-closet" class="space-y-3">
-      <!-- One-Tap Category Filter Bar -->
+
+    <!-- 1. CLOSET NEWSFEED (INSTAGRAM SCROLL STYLE) -->
+    <section id="view-feed" class="space-y-3">
+      <!-- One-Tap Category Pills -->
       <div class="flex gap-1.5 overflow-x-auto hide-scrollbar text-xs">
-        <button onclick="filterCategory('all', this)" class="cat-pill px-3 py-1.5 rounded-xl bg-teal-accent text-slate-950 font-bold">All</button>
-        <button onclick="filterCategory('blazers', this)" class="cat-pill px-3 py-1.5 rounded-xl glass-card text-silver font-medium">Blazers</button>
-        <button onclick="filterCategory('tops', this)" class="cat-pill px-3 py-1.5 rounded-xl glass-card text-silver font-medium">Tops</button>
-        <button onclick="filterCategory('bottoms', this)" class="cat-pill px-3 py-1.5 rounded-xl glass-card text-silver font-medium">Bottoms</button>
-        <button onclick="filterCategory('shoes', this)" class="cat-pill px-3 py-1.5 rounded-xl glass-card text-silver font-medium">Shoes</button>
-        <button onclick="toggleAccessories()" id="btn-toggle-acc" class="px-3 py-1.5 rounded-xl border border-purple-glow/40 bg-purple-royal/40 text-purple-glow font-bold flex items-center gap-1">More <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+        <button onclick="filterFeed('all', this)" class="cat-pill px-3 py-1.5 rounded-xl bg-cyan-400 text-slate-950 font-bold">All</button>
+        <button onclick="filterFeed('Executive', this)" class="cat-pill px-3 py-1.5 rounded-xl glass text-slate-300 font-medium">Business</button>
+        <button onclick="filterFeed('Casual', this)" class="cat-pill px-3 py-1.5 rounded-xl glass text-slate-300 font-medium">Casual</button>
+        <button onclick="filterFeed('Blazer', this)" class="cat-pill px-3 py-1.5 rounded-xl glass text-slate-300 font-medium">Blazers</button>
+        <button onclick="filterFeed('Shoes', this)" class="cat-pill px-3 py-1.5 rounded-xl glass text-slate-300 font-medium">Shoes</button>
+        <button onclick="filterFeed('Purses', this)" class="cat-pill px-3 py-1.5 rounded-xl glass text-slate-300 font-medium">Purses</button>
       </div>
 
-      <!-- Expandable Accessories Drawer -->
-      <div id="acc-tray" class="hidden glass-card p-3 rounded-2xl border border-purple-glow/30 grid grid-cols-4 gap-2 text-center text-xs">
-        <button onclick="filterCategory('purses', this)" class="p-2 bg-slate-900/60 rounded-xl text-silver hover:text-teal-accent"><i class="fa-solid fa-bag-shopping block mb-1"></i>Purses</button>
-        <button onclick="filterCategory('hats', this)" class="p-2 bg-slate-900/60 rounded-xl text-silver hover:text-teal-accent"><i class="fa-solid fa-hat-cowboy block mb-1"></i>Hats</button>
-        <button onclick="filterCategory('jewelry', this)" class="p-2 bg-slate-900/60 rounded-xl text-silver hover:text-teal-accent"><i class="fa-solid fa-gem block mb-1"></i>Jewelry</button>
-        <button onclick="filterCategory('glasses', this)" class="p-2 bg-slate-900/60 rounded-xl text-silver hover:text-teal-accent"><i class="fa-solid fa-glasses block mb-1"></i>Eyewear</button>
+      <!-- Feed Container -->
+      <div id="closet-stream" class="space-y-4">
+        <!-- Rendered items inject here -->
       </div>
+    </section>
 
-      <!-- Closet Grid -->
-      <div id="closet-grid" class="grid grid-cols-2 gap-3 min-h-[60vh]">
-        <div class="closet-card item-blazers glass-card p-3 rounded-2xl border border-slate-700/60">
-          <div class="h-32 rounded-xl bg-gradient-to-br from-teal-deep to-slate-900 mb-2 flex items-center justify-center text-teal-accent"><i class="fa-solid fa-vest-patches text-3xl"></i></div>
-          <p class="text-xs font-bold text-diamond">Teal Silk Blazer</p>
-          <button onclick="selectFitItem(this)" class="w-full mt-2 py-1 bg-white/10 text-diamond text-[11px] font-bold rounded-lg">Select for Fit</button>
+    <!-- 2. SALES FYP (VERTICAL TIKTOK / REELS FEED) -->
+    <section id="view-sales" class="hidden space-y-4">
+      <div class="glass p-3 rounded-2xl border border-slate-800 flex gap-2">
+        <input type="text" id="brand-input" placeholder="Track luxury brand (e.g., Telfar, Aquazzura, Alo)..." class="flex-1 bg-black/50 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white">
+        <button onclick="trackBrand()" class="px-3.5 py-1.5 bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl">Track</button>
+      </div>
+      <div id="sales-stream" class="space-y-4">
+        <div class="glass rounded-3xl p-5 border border-cyan-400/40 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-black text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full">BRAND: AQUAZZURA</span>
+            <span class="text-xs font-mono font-bold text-white">50% OFF VIP</span>
+          </div>
+          <h3 class="text-lg font-black text-white">Metallic & Crystal Evening Heel Drop</h3>
+          <p class="text-xs text-slate-300">Limited VIP release on 105mm reflective stilettos and ankle straps.</p>
+          <button onclick="switchTab('pinterest')" class="w-full py-2.5 bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl">See Pinterest Paired Looks</button>
         </div>
-        <div class="closet-card item-shoes glass-card p-3 rounded-2xl border border-slate-700/60">
-          <div class="h-32 rounded-xl bg-gradient-to-br from-purple-royal to-slate-900 mb-2 flex items-center justify-center text-purple-glow"><i class="fa-solid fa-shoe-prints text-3xl"></i></div>
-          <p class="text-xs font-bold text-diamond">Silver Stilettos</p>
-          <button onclick="selectFitItem(this)" class="w-full mt-2 py-1 bg-white/10 text-diamond text-[11px] font-bold rounded-lg">Select for Fit</button>
-        </div>
-        <div class="closet-card item-bottoms glass-card p-3 rounded-2xl border border-slate-700/60">
-          <div class="h-32 rounded-xl bg-gradient-to-br from-slate-900 to-teal-900 mb-2 flex items-center justify-center text-teal-accent"><i class="fa-solid fa-person-dress text-3xl"></i></div>
-          <p class="text-xs font-bold text-diamond">Emerald Silk Pants</p>
-          <button onclick="selectFitItem(this)" class="w-full mt-2 py-1 bg-white/10 text-diamond text-[11px] font-bold rounded-lg">Select for Fit</button>
-        </div>
-        <div class="closet-card item-purses glass-card p-3 rounded-2xl border border-slate-700/60">
-          <div class="h-32 rounded-xl bg-gradient-to-br from-purple-900 to-black mb-2 flex items-center justify-center text-silver"><i class="fa-solid fa-bag-shopping text-3xl"></i></div>
-          <p class="text-xs font-bold text-diamond">Teal Medium Telfar</p>
-          <button onclick="selectFitItem(this)" class="w-full mt-2 py-1 bg-white/10 text-diamond text-[11px] font-bold rounded-lg">Select for Fit</button>
+        <div class="glass rounded-3xl p-5 border border-purple-400/40 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-black text-purple-400 bg-purple-950 px-2.5 py-1 rounded-full">BRAND: ZARA SUITING</span>
+            <span class="text-xs font-mono font-bold text-white">NEW ARRIVAL</span>
+          </div>
+          <h3 class="text-lg font-black text-white">Jeweled Silk Emerald & Plum Tailored Suits</h3>
+          <p class="text-xs text-slate-300">Executive silk double-breasted blazers and pleated wide-leg pants.</p>
+          <button onclick="switchTab('pinterest')" class="w-full py-2.5 bg-gradient-to-r from-purple-800 to-purple-600 text-white font-bold text-xs rounded-xl">See Pinterest Paired Looks</button>
         </div>
       </div>
     </section>
 
-    <!-- AI BODY MIRROR -->
-    <section id="view-avatar" class="hidden space-y-4">
-      <div class="glass-card rounded-3xl p-5 neon-border text-center">
-        <h2 class="text-base font-extrabold text-diamond uppercase mb-1">3D AI Avatar Molding</h2>
-        <div class="w-40 h-56 mx-auto rounded-2xl bg-gradient-to-b from-purple-900 to-black border-2 border-teal-accent/50 flex flex-col items-center justify-center mb-4">
-          <i class="fa-solid fa-user-ninja text-6xl text-silver/80"></i>
-          <span class="mt-2 text-xs font-bold text-diamond">Toya • Curated</span>
-        </div>
-        <div class="space-y-3 text-left glass-card p-4 rounded-2xl border border-slate-800 text-xs">
-          <div><p class="text-silver mb-1">Skin Radiance</p><input type="range" class="w-full accent-teal-accent" min="1" max="5" value="4"></div>
-          <div><p class="text-silver mb-1">Protective Style</p><select class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-diamond"><option>Waist-Length Knotless Box Braids</option><option>Silk Press (Middle Part)</option><option>Textured High Puff</option></select></div>
-          <div><p class="text-silver mb-1">Body Proportions</p><input type="range" class="w-full accent-purple-glow" min="1" max="100" value="75"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PURSES & TRIOS -->
-    <section id="view-purses" class="hidden space-y-3">
-      <h2 class="text-base font-extrabold text-diamond uppercase">Purses, Makeup & Fragrance Trios</h2>
-      <div class="glass-card rounded-2xl p-4 border border-teal-accent/30 space-y-2">
-        <h3 class="text-sm font-bold text-diamond">Telfar Medium Shopping Bag (Teal)</h3>
-        <p class="text-xs text-silver"><strong class="text-teal-accent">Makeup:</strong> Cocoa liner + gold gloss</p>
-        <p class="text-xs text-silver"><strong class="text-purple-glow">Scent:</strong> Amber Cashmere + Baccarat Rouge 540</p>
-      </div>
-      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/30 space-y-2">
-        <h3 class="text-sm font-bold text-diamond">Saint Laurent Uptown Leather Pouch</h3>
-        <p class="text-xs text-silver"><strong class="text-teal-accent">Makeup:</strong> Deep berry velvet matte lip</p>
-        <p class="text-xs text-silver"><strong class="text-purple-glow">Scent:</strong> Kilian Angels' Share + Santal 33</p>
-      </div>
-    </section>
-    <!-- SALES TAB (RENAMED FROM BRANDS) -->
-    <section id="view-sales" class="hidden">
-      <div class="glass-card p-3 rounded-2xl border border-slate-800 mb-3 flex gap-2">
-        <input type="text" id="new-brand-input" placeholder="Add brand to track (e.g. Telfar, Alo)..." class="flex-1 bg-black/40 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-diamond">
-        <button onclick="addTrackedBrand()" class="px-3 py-1.5 bg-teal-accent text-slate-950 font-bold text-xs rounded-xl">Track</button>
-      </div>
-      <div class="fyp-container space-y-4" id="brand-fyp-feed">
-        <div class="fyp-card glass-card rounded-3xl p-5 border border-teal-accent/50 flex flex-col justify-between">
-          <div><span class="px-3 py-1 bg-teal-dark text-teal-accent text-xs font-bold rounded-full">BRAND: AQUAZZURA</span><h3 class="text-xl font-black text-diamond mt-2">Crystal & Metallic Heel Drop</h3><p class="text-xs text-silver mt-1">50% off VIP private drop on 105mm pumps.</p></div>
-          <button onclick="switchTab('pinterest')" class="w-full py-2.5 bg-teal-accent text-black font-bold text-xs rounded-xl">Open Pinterest Matching Boards</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PINTEREST BOARDS (3 CLOTHING, 1 SHOES, PERFUME & MAKEUP/NAILS) -->
+    <!-- 3. PINTEREST BOARDS -->
     <section id="view-pinterest" class="hidden space-y-3">
-      <div class="flex justify-between items-center"><h2 class="text-base font-extrabold text-diamond uppercase">Pinterest Vault Sync</h2><button onclick="alert('Refreshed!')" class="text-teal-accent"><i class="fa-solid fa-arrows-rotate"></i></button></div>
-      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-teal-accent uppercase mb-2">Clothing Board 1 • Fall/Winter Tailored</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Velvet Trench</div><div class="p-3 bg-black/40 rounded-xl">Cashmere Layers</div><div class="p-3 bg-black/40 rounded-xl">Tailored Leather</div></div></div>
-      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-teal-accent uppercase mb-2">Clothing Board 2 • Evening Gala & Luxe</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Emerald Gown</div><div class="p-3 bg-black/40 rounded-xl">Silk Slip</div><div class="p-3 bg-black/40 rounded-xl">Plum Tuxedo</div></div></div>
-      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-teal-accent uppercase mb-2">Clothing Board 3 • Executive Casual</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Cropped Knit</div><div class="p-3 bg-black/40 rounded-xl">Pleated Wide Leg</div><div class="p-3 bg-black/40 rounded-xl">Clean Trench</div></div></div>
-      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-diamond uppercase mb-2">Shoe Board • Kicks, Heels & Boots</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Jordan 4 Retro</div><div class="p-3 bg-black/40 rounded-xl">Stiletto Boot</div><div class="p-3 bg-black/40 rounded-xl">Chelsea Lug</div></div></div>
-      <div class="glass-card p-3 rounded-2xl"><p class="text-xs font-bold text-purple-glow uppercase mb-2">Perfume, Makeup Looks & Nails</p><div class="grid grid-cols-3 gap-2 text-[10px] text-center"><div class="p-3 bg-black/40 rounded-xl">Baccarat 540</div><div class="p-3 bg-black/40 rounded-xl">Velvet Berry Lip</div><div class="p-3 bg-black/40 rounded-xl">Teal Chrome Nails</div></div></div>
+      <h2 class="text-sm font-extrabold text-cyan-400 uppercase">Pinterest Vault Sync</h2>
+      <div class="glass p-3.5 rounded-2xl space-y-2">
+        <p class="text-xs font-bold text-cyan-400">Board 1 • Fall/Winter Tailored Layers</p>
+        <div class="grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Velvet Trench</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Cashmere Knit</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Tailored Leather</div>
+        </div>
+      </div>
+      <div class="glass p-3.5 rounded-2xl space-y-2">
+        <p class="text-xs font-bold text-purple-400">Board 2 • Evening Luxe & Gala Ready</p>
+        <div class="grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Emerald Gown</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Silk Slip</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Plum Tuxedo</div>
+        </div>
+      </div>
+      <div class="glass p-3.5 rounded-2xl space-y-2">
+        <p class="text-xs font-bold text-white">Board 3 • Executive Casual</p>
+        <div class="grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Cropped Blazer</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Wide-Leg Pant</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Tailored Coat</div>
+        </div>
+      </div>
+      <div class="glass p-3.5 rounded-2xl space-y-2">
+        <p class="text-xs font-bold text-amber-400">Shoes & Kicks Vault</p>
+        <div class="grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Jordan 4 Retro</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Stiletto Boots</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Chelsea Lugs</div>
+        </div>
+      </div>
+      <div class="glass p-3.5 rounded-2xl space-y-2">
+        <p class="text-xs font-bold text-pink-400">Perfumes & Glam Looks</p>
+        <div class="grid grid-cols-3 gap-2 text-[10px] text-center font-bold">
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Baccarat 540</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Berry Velvet Lip</div>
+          <div class="p-3 bg-black/60 rounded-xl border border-slate-800">Gold High-Gloss</div>
+        </div>
+      </div>
     </section>
 
-    <!-- SCENT TAB -->
+    <!-- 4. SCENT VAULT -->
     <section id="view-scent" class="hidden space-y-3">
-      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/40 space-y-2">
-        <h2 class="text-sm font-bold text-teal-accent uppercase">All-Day Scent Layer Profile</h2>
-        <p class="text-xs text-silver"><strong class="text-diamond">Base:</strong> Amber Cashmere + Tahitian Vanilla Oil</p>
-        <p class="text-xs text-silver"><strong class="text-diamond">Heart:</strong> Baccarat Rouge 540 Eau de Parfum</p>
-        <p class="text-xs text-silver"><strong class="text-diamond">Top:</strong> Bergamot & Pink Pepper Spritz</p>
+      <div class="glass rounded-2xl p-4 border border-purple-400/40 space-y-2">
+        <h2 class="text-sm font-bold text-cyan-400 uppercase">Signature Fragrance Trio</h2>
+        <div class="p-2.5 bg-slate-900/60 rounded-xl text-xs"><strong class="text-cyan-400">Base Layer:</strong> Amber Cashmere + Tahitian Vanilla Oil</div>
+        <div class="p-2.5 bg-slate-900/60 rounded-xl text-xs"><strong class="text-purple-400">Heart Projection:</strong> Baccarat Rouge 540 EDP</div>
+        <div class="p-2.5 bg-slate-900/60 rounded-xl text-xs"><strong class="text-white">Top Accents:</strong> Bergamot & Pink Pepper Spritz (10+ hr wear)</div>
       </div>
     </section>
 
-    <!-- CALENDAR & NAILS -->
-    <section id="view-outlook" class="hidden space-y-3">
-      <div class="glass-card rounded-2xl p-4 border border-teal-accent/40 space-y-1">
-        <h2 class="text-xs font-bold uppercase text-teal-accent">Connected Outlook Inboxes</h2>
-        <p class="text-xs text-diamond">LReed@netsysgroup.com • <span class="text-teal-accent">SYNCED</span></p>
-        <p class="text-xs text-diamond">reedl1sunypoly.edu • <span class="text-purple-glow">SYNCED</span></p>
-      </div>
-      <div class="glass-card rounded-2xl p-4 border border-purple-vibrant/40">
-        <h2 class="text-xs font-bold uppercase text-diamond mb-2">14-Day Nail Rotation (Starts Oct 16)</h2>
-        <div class="space-y-1.5 max-h-60 overflow-y-auto text-xs pr-1">
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 16:</span> Teal Chrome French Tips</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 17:</span> Plum Velvet Cat-Eye</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-silver"><span class="text-silver font-bold">Oct 18:</span> Glazed Cocoa Nude</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 19:</span> Matte Black & Emerald Swirl</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 20:</span> Rose Gold Ombré</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 21:</span> Negative Space Geometry</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-vibrant"><span class="text-silver font-bold">Oct 22:</span> Purple Aura & Chrome Drops</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 23:</span> Mirrored Silver Chrome</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 24:</span> Midnight Wine Velvet</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-silver"><span class="text-silver font-bold">Oct 25:</span> Milky White Platinum Dust</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 26:</span> Forest Green & Gold Leaf</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-glow"><span class="text-silver font-bold">Oct 27:</span> Smoky Marble Quartz</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-teal-accent"><span class="text-silver font-bold">Oct 28:</span> Cyan Chrome on Nude Base</div>
-          <div class="p-2 bg-slate-900/60 rounded-lg border-l-2 border-purple-vibrant"><span class="text-silver font-bold">Oct 29:</span> Royal Amethyst Crystals</div>
+    <!-- 5. 14-DAY NAILS -->
+    <section id="view-nails" class="hidden space-y-3">
+      <div class="glass rounded-2xl p-4 border border-cyan-400/40">
+        <h2 class="text-xs font-bold uppercase text-cyan-400 mb-2">14-Day Nail Calendar (Starts Oct 16)</h2>
+        <div class="space-y-1.5 max-h-72 overflow-y-auto text-xs pr-1">
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-cyan-400"><strong class="text-white">Oct 16:</strong> Electric Teal Chrome French Tips</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-purple-400"><strong class="text-white">Oct 17:</strong> Plum Velvet Cat-Eye</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-slate-400"><strong class="text-white">Oct 18:</strong> Glazed Cocoa Nude & Silver Foil</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-cyan-400"><strong class="text-white">Oct 19:</strong> Matte Black & Emerald Swirl</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-purple-400"><strong class="text-white">Oct 20:</strong> Rose Gold Metallic Ombré</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-cyan-400"><strong class="text-white">Oct 21:</strong> Negative Space Diamond Geometry</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-purple-400"><strong class="text-white">Oct 22:</strong> Jeweled Purple Aura & Chrome Drops</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-cyan-400"><strong class="text-white">Oct 23:</strong> Mirrored Silver Metallic Chrome</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-purple-400"><strong class="text-white">Oct 24:</strong> Midnight Wine Velvet 3D Gel Hearts</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-slate-400"><strong class="text-white">Oct 25:</strong> Milky White with Platinum Glitter</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-cyan-400"><strong class="text-white">Oct 26:</strong> Forest Green & Gold Leaf Inlay</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-purple-400"><strong class="text-white">Oct 27:</strong> Smoky Marble Quartz</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-cyan-400"><strong class="text-white">Oct 28:</strong> Deep Cyan Chrome on Nude Base</div>
+          <div class="p-2 bg-slate-900/80 rounded-lg border-l-4 border-purple-400"><strong class="text-white">Oct 29:</strong> Royal Amethyst Crystal Stiletto</div>
         </div>
       </div>
     </section>
   </main>
-
   <script>
-    const tabs = ["closet", "avatar", "purses", "sales", "pinterest", "scent", "outlook"];
+    const tabs = ['feed', 'sales', 'pinterest', 'scent', 'nails'];
     function switchTab(tId) {
       tabs.forEach(t => {
-        const v = document.getElementById("view-" + t); if (v) v.classList.add("hidden");
-        const b = document.getElementById("tab-btn-" + t); if (b) { b.classList.remove("bg-teal-accent", "text-slate-950", "font-bold"); b.classList.add("glass-card", "text-silver"); }
+        const v = document.getElementById('view-' + t); if (v) v.classList.add('hidden');
+        const b = document.getElementById('tb-' + t);
+        if (b) { b.classList.remove('bg-cyan-400', 'text-slate-950', 'font-bold'); b.classList.add('glass', 'text-slate-300'); }
       });
-      const av = document.getElementById("view-" + tId); if (av) av.classList.remove("hidden");
-      const ab = document.getElementById("tab-btn-" + tId); if (ab) { ab.classList.remove("glass-card", "text-silver"); ab.classList.add("bg-teal-accent", "text-slate-950", "font-bold"); }
+      const av = document.getElementById('view-' + tId); if (av) av.classList.remove('hidden');
+      const ab = document.getElementById('tb-' + tId);
+      if (ab) { ab.classList.remove('glass', 'text-slate-300'); ab.classList.add('bg-cyan-400', 'text-slate-950', 'font-bold'); }
     }
-    function toggleDrawer() {
-      const d = document.getElementById("side-drawer"), b = document.getElementById("drawer-backdrop");
-      d.classList.toggle("-translate-x-full"); b.classList.toggle("hidden");
+
+    function openModal() { document.getElementById('cam-modal').classList.remove('hidden'); }
+    function closeModal() { document.getElementById('cam-modal').classList.add('hidden'); }
+
+    // Persistent storage engine
+    let closetItems = JSON.parse(localStorage.getItem('toy_closet_v2') || '[]');
+
+    function saveAndRender() {
+      localStorage.setItem('toy_closet_v2', JSON.stringify(closetItems));
+      renderStream(closetItems);
     }
-    function setMode(m) {
-      document.getElementById("current-mode-label").innerText = m === 'work' ? 'Mode: Work / Executive' : 'Mode: Workout / Athleisure';
-      toggleDrawer();
+
+    function ingestPhotos(input) {
+      closeModal();
+      if (!input.files || input.files.length === 0) return;
+
+      const cats = ['Blazer', 'Tops', 'Bottoms', 'Shoes', 'Purses', 'Jewelry'];
+      Array.from(input.files).forEach((file, idx) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            // Auto-scale to ensure fast storage
+            const cvs = document.createElement('canvas');
+            const max = 800;
+            let w = img.width, h = img.height;
+            if (w > h && w > max) { h = Math.round(h * max / w); w = max; }
+            else if (h > max) { w = Math.round(w * max / h); h = max; }
+            cvs.width = w; cvs.height = h;
+            cvs.getContext('2d').drawImage(img, 0, 0, w, h);
+            const dataUrl = cvs.toDataURL('image/jpeg', 0.82);
+
+            // Auto-classification: cycle primary types and business/casual styling
+            const assignedCat = cats[(closetItems.length + idx) % cats.length];
+            const styleMode = (assignedCat === 'Blazer' || assignedCat === 'Purses' || idx % 2 === 0) ? 'Executive' : 'Casual';
+
+            closetItems.unshift({
+              id: Date.now() + Math.random(),
+              src: dataUrl,
+              category: assignedCat,
+              mode: styleMode,
+              title: styleMode + ' ' + assignedCat,
+              date: 'Added Today'
+            });
+            saveAndRender();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+      input.value = '';
     }
-    function toggleAccessories() {
-      const t = document.getElementById("acc-tray");
-      t.classList.toggle("hidden");
+
+    function renderStream(items) {
+      const container = document.getElementById('closet-stream');
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="glass rounded-3xl p-8 text-center space-y-3 border border-dashed border-slate-700">
+            <i class="fa-solid fa-camera text-4xl text-cyan-400"></i>
+            <p class="font-bold text-white text-sm">Your Closet Feed is Ready</p>
+            <p class="text-xs text-slate-400">Tap "+ Add Fit" at the top to take photos or upload from your gallery.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(item => `
+        <div class="glass rounded-3xl overflow-hidden border border-slate-800 stream-card" data-cat="${item.category}" data-mode="${item.mode}">
+          <div class="p-3 flex justify-between items-center bg-slate-950/60">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full ${item.mode === 'Executive' ? 'bg-cyan-400' : 'bg-purple-400'}"></span>
+              <span class="text-xs font-bold text-white">${item.title}</span>
+            </div>
+            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${item.mode === 'Executive' ? 'bg-cyan-950 text-cyan-400' : 'bg-purple-950 text-purple-400'}">${item.mode}</span>
+          </div>
+          <div class="w-full h-80 bg-black flex items-center justify-center overflow-hidden">
+            <img src="${item.src}" class="w-full h-full object-cover">
+          </div>
+          <div class="p-3 bg-slate-950/80 flex justify-between items-center text-xs">
+            <div class="flex gap-2">
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-slate-300 font-semibold text-[11px]">${item.category}</span>
+              <button onclick="toggleFit(this)" class="px-3 py-1 rounded-lg bg-white/10 text-cyan-400 font-bold active:scale-95">Select in Fit</button>
+            </div>
+            <button onclick="deleteItem('${item.id}')" class="text-slate-500 hover:text-red-400 p-1"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
     }
-    function filterCategory(cat, btn) {
-      document.querySelectorAll(".cat-pill").forEach(p => { p.classList.remove("bg-teal-accent", "text-slate-950", "font-bold"); p.classList.add("glass-card", "text-silver"); });
-      if (btn.classList.contains("cat-pill")) { btn.classList.remove("glass-card", "text-silver"); btn.classList.add("bg-teal-accent", "text-slate-950", "font-bold"); }
-      document.querySelectorAll(".closet-card").forEach(c => {
-        if (cat === "all" || c.classList.contains("item-" + cat)) { c.classList.remove("hidden"); } else { c.classList.add("hidden"); }
+
+    function toggleFit(btn) {
+      if (btn.classList.contains('bg-cyan-400')) {
+        btn.classList.remove('bg-cyan-400', 'text-slate-950');
+        btn.classList.add('bg-white/10', 'text-cyan-400');
+        btn.innerText = 'Select in Fit';
+      } else {
+        btn.classList.remove('bg-white/10', 'text-cyan-400');
+        btn.classList.add('bg-cyan-400', 'text-slate-950');
+        btn.innerText = '✓ In Today\'s Fit';
+      }
+    }
+
+    function deleteItem(id) {
+      closetItems = closetItems.filter(i => String(i.id) !== String(id));
+      saveAndRender();
+    }
+
+    function filterFeed(filter, btn) {
+      document.querySelectorAll('.cat-pill').forEach(p => { p.classList.remove('bg-cyan-400', 'text-slate-950', 'font-bold'); p.classList.add('glass', 'text-slate-300'); });
+      btn.classList.remove('glass', 'text-slate-300'); btn.classList.add('bg-cyan-400', 'text-slate-950', 'font-bold');
+      document.querySelectorAll('.stream-card').forEach(card => {
+        if (filter === 'all' || card.dataset.cat === filter || card.dataset.mode === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
       });
     }
-    function openCameraModal() { document.getElementById("camera-modal").classList.remove("hidden"); }
-    function closeCameraModal() { document.getElementById("camera-modal").classList.add("hidden"); }
-    function handleImageAdded(i) { closeCameraModal(); alert("Added item(s) to wardrobe!"); }
-    function selectFitItem(b) {
-      b.classList.toggle("bg-teal-accent"); b.classList.toggle("text-black");
-      b.innerText = b.classList.contains("bg-teal-accent") ? "✓ Selected in Fit" : "Select for Fit";
+
+    function trackBrand() {
+      const input = document.getElementById('brand-input');
+      if (!input.value.trim()) return;
+      const stream = document.getElementById('sales-stream');
+      const div = document.createElement('div');
+      div.className = 'glass rounded-3xl p-5 border border-cyan-400/40 space-y-3';
+      div.innerHTML = `
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-black text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full">BRAND: ${input.value.toUpperCase()}</span>
+          <span class="text-xs font-mono font-bold text-white">TRACKING LIVE</span>
+        </div>
+        <h3 class="text-lg font-black text-white">${input.value} Drop & Radar</h3>
+        <p class="text-xs text-slate-300">Active alerts enabled for seasonal arrivals and price cuts.</p>
+        <button onclick="switchTab('pinterest')" class="w-full py-2.5 bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl">View Matching Boards</button>
+      `;
+      stream.prepend(div);
+      input.value = '';
     }
-    function addTrackedBrand() {
-      const input = document.getElementById("new-brand-input"); if (!input.value.trim()) return;
-      const feed = document.getElementById("brand-fyp-feed");
-      const div = document.createElement("div");
-      div.className = "fyp-card glass-card rounded-3xl p-5 border border-teal-accent/50 flex flex-col justify-between";
-      div.innerHTML = `<div><span class="px-3 py-1 bg-teal-dark text-teal-accent text-xs font-bold rounded-full">BRAND: ${input.value.toUpperCase()}</span><h3 class="text-xl font-black text-diamond mt-2">${input.value} Drop</h3><p class="text-xs text-silver mt-1">Real-time alerts active for price drops.</p></div><button onclick="switchTab('pinterest')" class="w-full py-2.5 bg-teal-accent text-black font-bold text-xs rounded-xl">Open Pinterest Matching Boards</button>`;
-      feed.prepend(div); input.value = "";
-    }
-    function checkHash() {
-      const h = window.location.hash.replace("#", "");
-      if (h && tabs.includes(h)) switchTab(h);
-    }
-    window.addEventListener("hashchange", checkHash);
-    window.addEventListener("DOMContentLoaded", checkHash);
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => { renderStream(closetItems); });
   </script>
 </body>
 </html>
