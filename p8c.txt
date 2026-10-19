@@ -1,0 +1,35 @@
+    function processPrecisionUpload(input) {
+      closeModal();
+      if (!input.files || input.files.length === 0) return;
+      const targetDrawer = document.getElementById('modal-drawer-choice').value;
+      Array.from(input.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            const cvs = document.createElement('canvas');
+            const max = 1200;
+            let w = img.width, h = img.height;
+            if (w > h && w > max) { h = Math.round(h * max / w); w = max; }
+            else if (h > max) { w = Math.round(w * max / h); h = max; }
+            cvs.width = w; cvs.height = h;
+            cvs.getContext('2d').drawImage(img, 0, 0, w, h);
+            const lum = removeBackgroundAndGetLuminance(cvs);
+            const dataUrl = cvs.toDataURL('image/png');
+            closetVault.unshift({
+              id: Date.now() + Math.random(),
+              src: dataUrl,
+              drawer: targetDrawer,
+              luminance: lum,
+              notes: ""
+            });
+            saveAndSync();
+            enterDrawer(targetDrawer);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+      input.value = '';
+    }
+    const allDrawers = ["Skirts", "Shirts", "Pants", "Shorts", "Jackets", "Sweaters", "Shoes", "Purses", "Hats", "Jewelry", "Glasses", "Perfume"];

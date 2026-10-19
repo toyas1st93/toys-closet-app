@@ -1,0 +1,41 @@
+    function removeBackgroundAndGetLuminance(canvas) {
+      const w = canvas.width, h = canvas.height;
+      const ctx = canvas.getContext('2d');
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const d = imgData.data;
+      let bgR = 0, bgG = 0, bgB = 0, count = 0;
+      for (let x = 0; x < w; x += 8) {
+        let t = x * 4, b = ((h - 1) * w + x) * 4;
+        bgR += d[t] + d[b]; bgG += d[t+1] + d[b+1]; bgB += d[t+2] + d[b+2]; count += 2;
+      }
+      for (let y = 0; y < h; y += 8) {
+        let l = (y * w) * 4, r = (y * w + (w - 1)) * 4;
+        bgR += d[l] + d[r]; bgG += d[l+1] + d[r+1]; bgB += d[l+2] + d[r+2]; count += 2;
+      }
+      bgR /= count; bgG /= count; bgB /= count;
+      const topHangerLimit = Math.floor(h * 0.12);
+      let totalLum = 0, garmentPixels = 0;
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * 4;
+          if (y < topHangerLimit) { d[idx + 3] = 0; continue; }
+          const r = d[idx], g = d[idx+1], b = d[idx+2];
+          const dist = Math.sqrt((r - bgR)**2 + (g - bgG)**2 + (b - bgB)**2);
+          let isEdge = false;
+          if (x < w - 2 && y < h - 2) {
+            const nextX = (y * w + (x + 2)) * 4;
+            const nextY = ((y + 2) * w + x) * 4;
+            if (Math.abs(d[idx] - d[nextX]) + Math.abs(d[idx] - d[nextY]) > 14) isEdge = true;
+          }
+          if (dist > 22 || isEdge) {
+            d[idx + 3] = 255;
+            totalLum += (0.299 * r + 0.587 * g + 0.114 * b);
+            garmentPixels++;
+          } else {
+            d[idx + 3] = 0;
+          }
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      return garmentPixels > 0 ? Math.round(totalLum / garmentPixels) : 128;
+    }
